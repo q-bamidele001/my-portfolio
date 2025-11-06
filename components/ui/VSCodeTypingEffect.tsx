@@ -13,7 +13,7 @@ export const VSCodeTypingEffect = () => {
     { tag: 'h1', text: 'My name is Bamidele Quayum Ademola', color: 'text-blue-400' },
     { tag: 'h2', text: 'Full Stack Developer & Cybersecurity Expert', color: 'text-green-400' },
     { tag: 'div', text: 'Building secure, scalable web & mobile solutions', color: 'text-yellow-400' },
-    { tag: 'span', text: 'React • Next.js • Node.js • AWS • Ethical Hacking', color: 'text-purple-400' },
+    { tag: 'h2', text: 'React • Next.js • Node.js • AWS • Ethical Hacking', color: 'text-purple-400' },
     { tag: 'p', text: 'Transforming ideas into production-ready applications', color: 'text-cyan-400' },
   ];
 

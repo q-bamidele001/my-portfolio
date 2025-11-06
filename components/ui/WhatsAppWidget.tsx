@@ -17,7 +17,7 @@ export const WhatsAppWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-1/7 right-6 z-50 flex flex-col items-end">
       <motion.button
         aria-label="Open WhatsApp chat"
         onClick={() => setIsOpen((s) => !s)}

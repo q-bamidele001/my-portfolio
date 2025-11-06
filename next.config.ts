@@ -1,16 +1,18 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
+  // ✅ React strict mode still works
   reactStrictMode: true,
 
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // ✅ Ignore ESLint errors during build
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
 
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // // ✅ Ignore TypeScript errors during build
+  // typescript: {
+  //   ignoreBuildErrors: true,
+  // },
 };
 
 export default nextConfig;
-

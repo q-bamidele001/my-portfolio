@@ -87,11 +87,11 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
           </p>
 
           <motion.p
-            className="text-[11px] sm:text-xs md:text-sm mt-2 tracking-wide text-gray-300"
+            className="text-[10px] sm:text-xs md:text-sm mt-2 tracking-wide text-gray-300"
             whileHover={{ scale: 1.03 }}
             transition={{ type: 'spring', stiffness: 200 }}
           >
-            Full Stack Developer&nbsp;|&nbsp;Cybersecurity Expert&nbsp;|&nbsp;Cloud Engineer
+            Full Stack Developer | Cybersecurity Expert | Cloud Engineer
           </motion.p>
         </motion.div>
       </div>

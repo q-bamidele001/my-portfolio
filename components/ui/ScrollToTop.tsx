@@ -29,7 +29,7 @@ export const ScrollToTop = () => {
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           onClick={scrollToTop}
-          className="fixed bottom-24 left-4 sm:left-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="fixed bottom-1/7 left-4 sm:left-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300"
           whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
         >
