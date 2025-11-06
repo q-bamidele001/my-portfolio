@@ -26,7 +26,7 @@ export const WhatsAppWidget = () => {
         className="relative bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-2xl transition-all duration-200 flex items-center justify-center"
       >
         <BsWhatsapp
-          {...({ className: 'w-6 h-6 sm:w-7 sm:h-7' } as unknown as IconBaseProps)}
+          {...({ className: 'w-8 h-8 sm:w-9 sm:h-9' } as unknown as IconBaseProps)}
           aria-hidden="true"
         />
 

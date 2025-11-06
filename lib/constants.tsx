@@ -51,7 +51,7 @@ export const projects: Project[] = [
     tech: ['EC2', 'AWS SDK', 'IAM', 'VPC', 'S3', 'CloudWatch'],
     liveUrl: '',
     githubUrl: '',
-    image: '/images/cloud.png'
+    image: '/images/cloudteck.png'
   },
   {
     id: 4,
