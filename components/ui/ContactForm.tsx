@@ -62,7 +62,7 @@ export const ContactForm = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {[
           { label: 'Your Name *', id: 'name', type: 'text', placeholder: 'Full Name' },
-          { label: 'Your Email *', id: 'email', type: 'email', placeholder: 'youremail@example.com' },
+          { label: 'Your Email *', id: 'email', type: 'email', placeholder: 'Email@example.com' },
         ].map((field) => (
           <motion.div
             key={field.id}
