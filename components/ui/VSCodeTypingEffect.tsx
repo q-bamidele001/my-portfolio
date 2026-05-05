@@ -162,13 +162,13 @@ export const VSCodeTypingEffect = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
-      className="w-full max-w-[96vw] sm:max-w-[560px] md:max-w-[600px] lg:max-w-[680px] mx-auto"
+      className="w-full min-w-0 max-w-full sm:max-w-[560px] md:max-w-[600px] lg:max-w-[680px] mx-auto"
     >
       {/* ── Editor window ── */}
-      <div className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/50 overflow-hidden">
+      <div className="bg-[#0d1117]/95 rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden ring-1 ring-blue-400/10">
 
         {/* Title bar */}
-        <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-[#161b22] border-b border-gray-700/60">
+        <div className="flex items-center justify-between gap-2 px-2.5 sm:px-4 py-2.5 bg-[#161b22]/95 border-b border-white/10">
           {/* Traffic lights */}
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all" />
@@ -177,9 +177,9 @@ export const VSCodeTypingEffect = () => {
           </div>
 
           {/* Tab */}
-          <div className="flex items-center gap-1.5 bg-[#0d1117] px-3 py-1 rounded-md border border-gray-700/40">
+          <div className="flex min-w-0 items-center gap-1.5 bg-[#0d1117] px-2 sm:px-3 py-1 rounded-lg border border-white/10 shadow-inner shadow-white/5">
             <div className="w-2 h-2 rounded-sm bg-blue-400" />
-            <span className="text-[10px] sm:text-xs text-gray-400 font-mono">portfolio.tsx</span>
+            <span className="truncate text-[10px] sm:text-xs text-gray-400 font-mono">portfolio.tsx</span>
           </div>
 
           {/* Status dots */}
@@ -192,7 +192,7 @@ export const VSCodeTypingEffect = () => {
         {/* ── Editor body ── */}
         <div className="flex overflow-hidden">
           {/* Gutter */}
-          <div className="flex-shrink-0 w-7 sm:w-9 bg-[#0d1117] border-r border-gray-800/60 pt-3 pb-4 flex flex-col items-end pr-1.5 sm:pr-2 select-none">
+          <div className="flex-shrink-0 w-7 sm:w-9 bg-black/10 border-r border-white/5 pt-3 pb-4 flex flex-col items-end pr-1.5 sm:pr-2 select-none">
             {CODE_LINES.slice(0, Math.max(visibleLines + 1, 1)).map((_, i) => (
               <div
                 key={i}
@@ -206,7 +206,7 @@ export const VSCodeTypingEffect = () => {
           </div>
 
           {/* Code area */}
-          <div className="flex-1 overflow-x-auto p-3 sm:p-4 min-h-[260px] sm:min-h-[320px]">
+          <div className="flex-1 overflow-x-auto p-2.5 sm:p-4 min-h-[240px] sm:min-h-[320px] bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.08),transparent_40%)]">
             <div className="space-y-0 font-mono text-[10px] sm:text-[12px] md:text-[13px] leading-5 sm:leading-6">
 
               {/* Fully typed lines */}
@@ -256,12 +256,12 @@ export const VSCodeTypingEffect = () => {
         </div>
 
         {/* ── Status bar ── */}
-        <div className="flex items-center justify-between px-3 sm:px-4 py-1 bg-blue-600 text-white text-[9px] sm:text-[11px] font-mono">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-2 px-2.5 sm:px-4 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-[9px] sm:text-[11px] font-mono">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span>⎇ main</span>
             <span className="hidden sm:block">✓ No errors</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="hidden sm:block">{years}+ yrs exp</span>
             <span>TypeScript</span>
             <span>UTF-8</span>
@@ -289,7 +289,7 @@ export const VSCodeTypingEffect = () => {
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 + i * 0.07 }}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full border bg-gray-900/60 backdrop-blur text-[10px] sm:text-xs font-mono ${p.color}`}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full border bg-gray-950/70 backdrop-blur text-[10px] sm:text-xs font-mono shadow-lg shadow-black/20 ${p.color}`}
               >
                 <span className="font-bold">{p.value}</span>
                 <span className="text-gray-500">{p.label}</span>

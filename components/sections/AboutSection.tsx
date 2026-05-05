@@ -23,7 +23,7 @@ export const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 overflow-hidden"
+      className="relative py-16 sm:py-24 px-3 sm:px-6 lg:px-8 bg-gray-950/35 backdrop-blur-md border-y border-white/[0.06] overflow-hidden"
     >
       {/* Background atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
@@ -50,7 +50,7 @@ export const AboutSection = () => {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mt-8 sm:mt-10 mb-12 sm:mb-16 max-w-3xl space-y-5"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20">
+          <div className="inline-flex max-w-full items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             <span className="text-xs font-semibold text-blue-400 tracking-wide">
               Available for projects
@@ -110,18 +110,18 @@ export const AboutSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
                 whileHover={{ y: -4 }}
-                className="group relative bg-gray-800/50 border border-white/[0.06] rounded-2xl p-4 sm:p-5 overflow-hidden cursor-default"
+                className="group relative bg-white/[0.045] border border-white/[0.08] rounded-2xl p-4 sm:p-5 overflow-hidden cursor-default shadow-lg shadow-black/10 hover:bg-white/[0.07] hover:shadow-blue-500/10 transition-all duration-300"
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
                 <div className="flex items-center gap-3 mb-2 sm:mb-3">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-300" />
                   </div>
                   <h4 className="text-sm sm:text-base font-semibold text-white leading-tight">
                     {item.label}
                   </h4>
                 </div>
-                <p className="text-xs text-gray-500 leading-relaxed pl-12">
+                <p className="text-xs text-gray-500 leading-relaxed sm:pl-12">
                   {item.desc}
                 </p>
               </motion.div>
@@ -139,9 +139,9 @@ export const AboutSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
           >
-            <div className="bg-gradient-to-br from-blue-900/25 to-purple-900/20 border border-blue-500/15 rounded-2xl p-5 sm:p-6 h-full hover:border-blue-500/30 transition-all duration-300">
+            <div className="bg-white/[0.045] border border-blue-400/15 rounded-2xl p-5 sm:p-6 h-full hover:border-blue-400/35 hover:bg-white/[0.07] shadow-xl shadow-black/10 transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-lg">
+                <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-lg">
                   🎓
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-blue-400">Education</h3>
@@ -182,7 +182,7 @@ export const AboutSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
           >
-            <div className="bg-gradient-to-br from-purple-900/25 to-pink-900/20 border border-purple-500/15 rounded-2xl p-5 sm:p-6 h-full hover:border-purple-500/30 transition-all duration-300">
+            <div className="bg-white/[0.045] border border-violet-400/15 rounded-2xl p-5 sm:p-6 h-full hover:border-violet-400/35 hover:bg-white/[0.07] shadow-xl shadow-black/10 transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-lg">
                   💼

@@ -9,10 +9,10 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
   const currentYear = new Date().getFullYear(); // Dynamic year
 
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 py-12 px-4">
+    <footer className="bg-gray-950/80 border-t border-white/10 py-10 sm:py-12 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          className="grid md:grid-cols-3 gap-8 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -22,7 +22,7 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 200 }}
           >
-            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h3 className="break-words text-lg sm:text-xl font-black tracking-wide bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-2">
               BAMIDELE ADEMOLA
             </h3>
             <p className="text-gray-400 text-sm">
@@ -41,7 +41,7 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
                 <motion.button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className="block text-gray-400 hover:text-blue-400 transition-colors capitalize"
+                  className="block text-gray-400 hover:text-cyan-300 transition-colors capitalize"
                   whileHover={{ x: 5, scale: 1.03 }}
                   transition={{ type: 'spring', stiffness: 250 }}
                 >
@@ -60,14 +60,14 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
             <div className="space-y-2 text-gray-400">
               <motion.a
                 href="mailto:Q.bamidele001@gmail.com"
-                className="block hover:text-blue-400 transition-colors"
+                className="block break-words hover:text-cyan-300 transition-colors"
                 whileHover={{ scale: 1.05 }}
               >
                 Q.bamidele001@gmail.com
               </motion.a>
               <motion.a
                 href="tel:+2347087121063"
-                className="block hover:text-blue-400 transition-colors"
+                className="block hover:text-cyan-300 transition-colors"
                 whileHover={{ scale: 1.05 }}
               >
                 +234 708 712 1063
@@ -78,7 +78,7 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
         </motion.div>
 
         <motion.div
-          className="text-center text-gray-400 pt-8 border-t border-gray-800 px-4 sm:px-6"
+          className="text-center text-gray-400 pt-8 border-t border-white/10 px-4 sm:px-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

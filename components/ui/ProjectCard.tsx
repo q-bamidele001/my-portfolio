@@ -32,15 +32,15 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       viewport={{ once: true }}
-      className="relative group w-full"
+      className="relative group w-full min-w-0"
     >
       {/* Gradient border glow on hover */}
       <div className={`absolute -inset-[1px] rounded-2xl bg-gradient-to-br ${accent.border} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[2px]`} />
 
-      <div className="relative bg-[#0f1629] rounded-2xl overflow-hidden border border-white/5 shadow-xl shadow-black/40 flex flex-col h-full">
+      <div className="relative bg-[#0f1629]/95 rounded-2xl overflow-hidden border border-white/10 shadow-xl shadow-black/35 flex min-w-0 flex-col h-full ring-1 ring-white/[0.03]">
 
         {/* ── Image + overlay ── */}
-        <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0">
+        <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0 bg-gray-950">
           {project.image ? (
             <Image
               src={project.image}
@@ -67,7 +67,7 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center gap-4"
+                className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 p-4"
               >
                 {project.liveUrl && (
                   <motion.a
@@ -77,7 +77,7 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.05 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-lg text-sm font-semibold hover:bg-gray-100 transition-colors"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
@@ -91,7 +91,7 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg text-sm font-semibold hover:bg-white/20 transition-colors"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-full text-sm font-semibold hover:bg-white/20 transition-colors shadow-lg shadow-black/20"
                   >
                     <Github className="w-4 h-4" />
                     Source
@@ -103,11 +103,11 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
         </div>
 
         {/* ── Content ── */}
-        <div className="flex flex-col flex-1 p-5 sm:p-6">
+        <div className="flex min-w-0 flex-col flex-1 p-4 sm:p-6">
 
           {/* Title + arrow */}
-          <div className="flex items-start justify-between gap-3 mb-2">
-            <h3 className="text-base sm:text-lg font-bold text-white leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
+          <div className="flex min-w-0 items-start justify-between gap-3 mb-2">
+            <h3 className="min-w-0 break-words text-base sm:text-lg font-bold text-white leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
               {project.title}
             </h3>
             <ArrowUpRight className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-all duration-300 ${hovered ? accent.arrow + ' translate-x-0.5 -translate-y-0.5' : 'text-gray-600'}`} />
@@ -126,20 +126,20 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             {project.tech.slice(0, 5).map((tech, idx) => (
               <span
                 key={idx}
-                className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${accent.badge} transition-colors`}
+                className={`px-2.5 py-1 rounded-full text-xs font-medium border ${accent.badge} transition-colors`}
               >
                 {tech}
               </span>
             ))}
             {project.tech.length > 5 && (
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border border-white/10 text-gray-500">
+              <span className="px-2.5 py-1 rounded-full text-xs font-medium border border-white/10 text-gray-500">
                 +{project.tech.length - 5}
               </span>
             )}
           </div>
 
           {/* Footer links */}
-          <div className="flex items-center gap-4 text-xs text-gray-500">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-500">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}

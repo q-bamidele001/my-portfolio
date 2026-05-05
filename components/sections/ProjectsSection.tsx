@@ -40,7 +40,7 @@ export const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50 backdrop-blur-md"
+      className="py-16 sm:py-20 px-3 sm:px-6 lg:px-8 bg-gray-950/35 backdrop-blur-md border-y border-white/[0.06]"
     >
       <div className="max-w-7xl mx-auto">
         <SectionTitle icon={Code} title="Featured Projects" />
@@ -56,7 +56,7 @@ export const ProjectsSection = () => {
           </div>
         ) : (
           <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 mt-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -88,7 +88,7 @@ export const ProjectsSection = () => {
             href="https://github.com/q-bamidele001"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-blue-500/40"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-5 sm:px-7 py-3 rounded-full border border-blue-300/20 bg-gradient-to-r from-blue-500 to-violet-600 text-white font-semibold shadow-xl shadow-blue-500/20 transition-all duration-300 hover:scale-105 hover:shadow-blue-500/35"
           >
             <Github className="w-5 h-5" />
             <span>View All Projects on GitHub</span>

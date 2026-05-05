@@ -62,17 +62,17 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 px-3 py-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8"
+          className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8"
         >
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
-              <LayoutDashboard className="w-8 h-8 text-blue-400" />
+          <div className="min-w-0">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
+              <LayoutDashboard className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400 flex-shrink-0" />
               Admin Dashboard
             </h1>
             <p className="text-gray-400 mt-2">Manage your portfolio content</p>
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleSignOut}
-            className="flex items-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500 text-red-400 rounded-lg transition-all"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-red-500/20 hover:bg-red-500/30 border border-red-500 text-red-400 rounded-lg transition-all"
           >
             <LogOut className="w-4 h-4" />
             Sign Out
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
         </motion.div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
           {[
             {
               label: 'Total Projects',
@@ -126,14 +126,14 @@ export default function AdminDashboard() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all"
+              className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-4 sm:p-6 border border-gray-700 hover:border-gray-600 transition-all"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className={`p-3 rounded-lg bg-gradient-to-br ${stat.gradient} bg-opacity-20`}>
                   <stat.icon className={`w-6 h-6 text-${stat.color}-400`} />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{stat.value}</h3>
+              <h3 className="break-words text-2xl font-bold text-white mb-1">{stat.value}</h3>
               <p className="text-sm text-gray-400">{stat.label}</p>
             </motion.div>
           ))}
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 border border-gray-700"
+          className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-4 sm:p-6 border border-gray-700"
         >
           <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
             <LayoutDashboard className="w-5 h-5 text-blue-400" />
@@ -156,12 +156,12 @@ export default function AdminDashboard() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => router.push('/admin/projects')}
-              className="flex items-center gap-4 p-6 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all"
+              className="flex min-w-0 items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all"
             >
               <div className="p-3 bg-blue-500/20 rounded-lg">
                 <FolderKanban className="w-6 h-6 text-blue-400" />
               </div>
-              <div className="text-left">
+              <div className="min-w-0 text-left">
                 <h3 className="font-semibold text-white">Manage Projects</h3>
                 <p className="text-sm text-gray-400">Add, edit or delete projects</p>
               </div>
@@ -171,12 +171,12 @@ export default function AdminDashboard() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => router.push('/admin/testimonials')}
-              className="flex items-center gap-4 p-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all"
+              className="flex min-w-0 items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all"
             >
               <div className="p-3 bg-purple-500/20 rounded-lg">
                 <MessageSquare className="w-6 h-6 text-purple-400" />
               </div>
-              <div className="text-left">
+              <div className="min-w-0 text-left">
                 <h3 className="font-semibold text-white">Manage Testimonials</h3>
                 <p className="text-sm text-gray-400">Review and manage testimonials</p>
               </div>

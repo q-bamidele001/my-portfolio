@@ -81,7 +81,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 text-white flex flex-col">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.16),transparent_34%),linear-gradient(135deg,#030712_0%,#0f172a_45%,#111827_100%)] text-white flex flex-col selection:bg-blue-500/30 selection:text-white">
       <AnimatePresence mode="wait">
         <motion.main
           key="portfolio"

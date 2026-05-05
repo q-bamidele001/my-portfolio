@@ -57,9 +57,9 @@ export const ContactForm = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="space-y-6 w-full max-w-2xl mx-auto px-4 sm:px-6"
+      className="space-y-5 sm:space-y-6 w-full min-w-0 max-w-2xl mx-auto"
     >
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         {[
           { label: 'Your Name *', id: 'name', type: 'text', placeholder: 'Full Name' },
           { label: 'Your Email *', id: 'email', type: 'email', placeholder: 'Email..' },
@@ -84,8 +84,8 @@ export const ContactForm = () => {
               onChange={handleChange}
               required
               placeholder={field.placeholder}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg 
-              focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500 transition-all"
+              className="w-full min-w-0 px-4 py-3 bg-gray-950/45 border border-white/10 rounded-xl
+              focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 text-white placeholder-gray-500 transition-all outline-none"
             />
           </motion.div>
         ))}
@@ -107,8 +107,8 @@ export const ContactForm = () => {
           onChange={handleChange}
           required
           placeholder="Project Inquiry"
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg 
-          focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500 transition-all"
+          className="w-full min-w-0 px-4 py-3 bg-gray-950/45 border border-white/10 rounded-xl
+          focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 text-white placeholder-gray-500 transition-all outline-none"
         />
       </motion.div>
 
@@ -128,8 +128,8 @@ export const ContactForm = () => {
           required
           rows={6}
           placeholder="Tell me about your project..."
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg 
-          focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-500 
+          className="w-full min-w-0 px-4 py-3 bg-gray-950/45 border border-white/10 rounded-xl
+          focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 text-white placeholder-gray-500 outline-none
           transition-all resize-none"
         />
       </motion.div>
@@ -139,9 +139,9 @@ export const ContactForm = () => {
         disabled={isSubmitting}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
-        className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 
-        text-white font-semibold py-4 rounded-lg flex items-center justify-center gap-2 
-        transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-blue-500/50"
+        className="w-full bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700
+        text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2
+        transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-blue-500/30"
       >
         {isSubmitting ? (
           <>
@@ -166,7 +166,7 @@ export const ContactForm = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="bg-green-500/20 border border-green-500 text-green-400 px-4 py-3 rounded-lg"
+            className="bg-green-500/15 border border-green-400/30 text-green-300 px-4 py-3 rounded-xl"
           >
             ✓ Message sent successfully! I'll get back to you soon.
           </motion.div>
@@ -176,7 +176,7 @@ export const ContactForm = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg"
+            className="bg-red-500/15 border border-red-400/30 text-red-300 px-4 py-3 rounded-xl"
           >
             ✗ Something went wrong. Please try again or contact me directly.
           </motion.div>

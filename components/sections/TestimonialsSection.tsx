@@ -67,7 +67,7 @@ export const TestimonialsSection = () => {
       `}</style>
 
       {/* ── Carousel section ── */}
-      <section id="testimonials" className="py-16 sm:py-20 bg-gray-900/50 backdrop-blur-md">
+      <section id="testimonials" className="py-16 sm:py-20 bg-gray-950/35 backdrop-blur-md overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle icon={MessageCircle} title="Client Testimonials" />
           <motion.div
@@ -107,7 +107,7 @@ export const TestimonialsSection = () => {
                     {loopedTestimonials.map((testimonial, index) => (
                       <div
                         key={`${testimonial.id}-${index}`}
-                        className="flex-shrink-0 w-[260px] sm:w-[310px] md:w-[350px]"
+                        className="flex-shrink-0 w-[82vw] max-w-[260px] sm:w-[310px] sm:max-w-none md:w-[350px]"
                       >
                         <TestimonialCard testimonial={testimonial} />
                       </div>
@@ -135,7 +135,7 @@ export const TestimonialsSection = () => {
                     key={idx}
                     whileHover={{ scale: 1.06 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                    className="text-center p-4 rounded-xl bg-white/5 border border-white/10"
+                    className="text-center p-4 rounded-2xl bg-white/[0.045] border border-white/10 shadow-lg shadow-black/10 hover:bg-white/[0.07] transition-colors"
                   >
                     <div className={`text-3xl sm:text-4xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
                     <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
@@ -151,7 +151,7 @@ export const TestimonialsSection = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Section background atmosphere */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900/0 via-blue-950/20 to-gray-900/0 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 h-[360px] w-[360px] sm:h-[600px] sm:w-[600px] -translate-x-1/2 -translate-y-1/2 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-2xl mx-auto">
           {/* Section label above card */}
@@ -162,12 +162,12 @@ export const TestimonialsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-400 mb-3">
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-cyan-300 mb-3">
               ✦ Leave a Review
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
               Worked with me?{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-300 to-violet-300 bg-clip-text text-transparent">
                 Share it.
               </span>
             </h2>
@@ -185,20 +185,20 @@ export const TestimonialsSection = () => {
             className="relative"
           >
             {/* Outer glow ring */}
-            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-br from-blue-500/40 via-purple-500/20 to-pink-500/30 blur-[2px]" />
+            <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-br from-cyan-400/35 via-violet-400/20 to-pink-400/25 blur-[2px]" />
 
             {/* Card */}
-            <div className="relative bg-[#0d1525] rounded-3xl overflow-hidden border border-white/8 shadow-2xl shadow-black/50">
+            <div className="relative bg-[#0d1525]/95 rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/45">
 
               {/* Top accent bar */}
-              <div className="h-1 w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
+              <div className="h-1 w-full bg-gradient-to-r from-cyan-400 via-violet-400 to-pink-400" />
 
               {/* Inner glow orbs — decorative only */}
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
 
               {/* Form content */}
-              <div className="relative z-10 p-5 sm:p-8 md:p-10">
+              <div className="relative z-10 p-4 sm:p-8 md:p-10">
                 <TestimonialForm />
               </div>
             </div>

@@ -17,10 +17,10 @@ export const SkillCard = ({ skill }: SkillCardProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
       viewport={{ once: true }}
-      className="group flex flex-col items-center justify-center gap-2 bg-gray-800 rounded-xl p-3 sm:p-4 hover:bg-gray-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 cursor-pointer"
+      className="group flex min-h-24 flex-col items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.045] p-3 sm:p-4 shadow-lg shadow-black/10 hover:border-cyan-300/30 hover:bg-white/[0.075] transition-all duration-300 hover:shadow-cyan-500/10 cursor-pointer"
     >
       {/* Icon rendered by TechIcons — already sized at w-7/w-8 */}
-      <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+      <div className="text-cyan-300 group-hover:text-cyan-200 transition-colors duration-300">
         {React.isValidElement(skill.icon)
           ? skill.icon
           : <span>{skill.icon as React.ReactNode}</span>

@@ -120,11 +120,11 @@ export default function TestimonialsManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 px-3 py-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 min-w-0">
           <button
             onClick={() => router.push('/admin')}
             className="text-blue-400 hover:text-blue-300 transition-colors mb-4 flex items-center gap-2"
@@ -132,8 +132,8 @@ export default function TestimonialsManagement() {
             <ArrowLeft className="w-4 h-4" />
             Back to Dashboard
           </button>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
-            <MessageSquare className="w-8 h-8 text-blue-400" />
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
+            <MessageSquare className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400 flex-shrink-0" />
             Manage Testimonials
           </h1>
           <p className="text-gray-400 mt-2">
@@ -143,7 +143,7 @@ export default function TestimonialsManagement() {
 
         {/* Error banner */}
         {error && (
-          <div className="mb-6 px-4 py-3 bg-red-500/20 border border-red-500 text-red-400 rounded-lg text-sm">
+          <div className="mb-6 px-4 py-3 bg-red-500/20 border border-red-500 text-red-400 rounded-lg text-sm break-words">
             {error}
           </div>
         )}
@@ -155,26 +155,26 @@ export default function TestimonialsManagement() {
             <p className="text-gray-400">Loading testimonials...</p>
           </div>
         ) : testimonials.length === 0 ? (
-          <div className="text-center py-12 bg-gray-800/50 rounded-xl border border-gray-700">
+          <div className="text-center py-12 px-4 bg-gray-800/50 rounded-xl border border-gray-700">
             <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-400">No testimonials yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((testimonial) => (
               <motion.div
                 key={testimonial.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all"
+                className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700 hover:border-gray-600 transition-all min-w-0"
               >
                 {/* Client Info */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0">
+                <div className="flex items-start gap-3 sm:gap-4 mb-4">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0">
                     {testimonial.image ? (
                       <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                      <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm sm:text-xl">
                         {testimonial.name.split(' ').map((n) => n[0]).join('')}
                       </div>
                     )}
@@ -191,10 +191,10 @@ export default function TestimonialsManagement() {
                 </div>
 
                 {/* Feedback */}
-                <p className="text-sm text-gray-300 italic mb-4 line-clamp-3">"{testimonial.feedback}"</p>
+                <p className="text-sm text-gray-300 italic mb-4 line-clamp-3 break-words">"{testimonial.feedback}"</p>
 
                 {/* Project */}
-                <div className="text-xs text-gray-500 mb-3 pb-3 border-b border-gray-700">
+                <div className="break-words text-xs text-gray-500 mb-3 pb-3 border-b border-gray-700">
                   Project: {testimonial.project}
                 </div>
 
@@ -207,9 +207,9 @@ export default function TestimonialsManagement() {
                         type="month"
                         value={editMonth}
                         onChange={(e) => setEditMonth(e.target.value)}
-                        className="w-full px-3 py-2 bg-gray-900 border border-blue-500 rounded text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full min-w-0 px-3 py-2 bg-gray-900 border border-blue-500 rounded text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
-                      <div className="flex gap-2 mt-2">
+                      <div className="flex flex-col min-[380px]:flex-row gap-2 mt-2">
                         <button
                           onClick={() => saveDate(testimonial.id)}
                           disabled={savingId === testimonial.id || !editMonth}
@@ -232,13 +232,13 @@ export default function TestimonialsManagement() {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="min-w-0 break-words text-xs text-gray-400">
                         Date: <span className="text-white font-medium">{testimonial.date}</span>
                       </span>
                       <button
                         onClick={() => startEdit(testimonial)}
-                        className="text-blue-400 hover:text-blue-300 transition-colors ml-2"
+                        className="flex-shrink-0 text-blue-400 hover:text-blue-300 transition-colors ml-2"
                         title="Edit date"
                       >
                         <Edit className="w-4 h-4" />
@@ -249,9 +249,9 @@ export default function TestimonialsManagement() {
 
                 {/* Email */}
                 <div className="mb-4 pb-4 border-b border-gray-700">
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-400 break-words">
                     <span className="font-medium">Email:</span>{' '}
-                    <a href={`mailto:${testimonial.email}`} className="text-blue-400 hover:text-blue-300">
+                    <a href={`mailto:${testimonial.email}`} className="break-all text-blue-400 hover:text-blue-300">
                       {testimonial.email}
                     </a>
                   </p>

@@ -17,13 +17,13 @@ export const WhatsAppWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-1/12 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-5 right-3 sm:bottom-1/12 sm:right-6 z-50 flex flex-col items-end">
       <motion.button
         aria-label="Open WhatsApp chat"
         onClick={() => setIsOpen((s) => !s)}
         whileHover={{ scale: 1.07, rotate: 3 }}
         whileTap={{ scale: 0.96 }}
-        className="relative bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-2xl transition-all duration-200 flex items-center justify-center"
+        className="relative bg-green-500 hover:bg-green-600 text-white rounded-full p-3 sm:p-4 shadow-2xl shadow-green-950/40 ring-1 ring-white/20 transition-all duration-200 flex items-center justify-center"
       >
         <BsWhatsapp
           {...({ className: 'w-8 h-8 sm:w-9 sm:h-9' } as unknown as IconBaseProps)}
@@ -44,10 +44,10 @@ export const WhatsAppWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.24, ease: 'easeInOut' }}
-            className="mt-3 w-64 sm:w-72 bg-white text-gray-800 rounded-xl shadow-2xl p-3 sm:p-4"
+            className="mt-3 w-[88vw] max-w-72 bg-white text-gray-800 rounded-2xl shadow-2xl shadow-black/25 p-3 sm:p-4 border border-gray-200"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md shadow-green-500/20">
                 BA
               </div>
               <div>
@@ -64,7 +64,7 @@ export const WhatsAppWidget = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={openWhatsApp}
-              className="w-full bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 text-sm font-medium transition-colors"
+              className="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl py-2 text-sm font-medium transition-colors"
             >
               Start Chat
             </motion.button>

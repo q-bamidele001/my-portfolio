@@ -60,8 +60,8 @@ export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardPr
       transition={{ duration: 0.25, ease: 'easeOut' }}
       // ✅ flex flex-col + fixed height ensures all cards are same height in the row
       // No absolute positioning inside — everything flows naturally
-      className="relative bg-gray-800/90 border border-white/5 rounded-2xl p-4 sm:p-5
-                 shadow-lg hover:shadow-purple-500/20 hover:border-purple-500/30
+      className="relative bg-white/[0.055] border border-white/10 rounded-2xl p-4 sm:p-5
+                 shadow-xl shadow-black/20 hover:shadow-purple-500/15 hover:border-purple-400/30 hover:bg-white/[0.075]
                  transition-all duration-300 flex flex-col"
       style={{ minHeight: '220px' }}
     >
@@ -71,7 +71,7 @@ export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardPr
       {/* ── Header: avatar + name/role/stars ── */}
       <div className="flex items-center gap-3 mb-3">
         {/* Avatar */}
-        <div className="flex-shrink-0 w-11 h-11 rounded-full overflow-hidden border-2 border-blue-500/60">
+        <div className="flex-shrink-0 w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-300/50 shadow-md shadow-cyan-500/10">
           {testimonial.image ? (
             <img
               src={testimonial.image}
@@ -79,7 +79,7 @@ export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardPr
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600
+            <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-violet-600
                             flex items-center justify-center text-white font-bold text-sm">
               {testimonial.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
             </div>

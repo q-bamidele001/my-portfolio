@@ -27,9 +27,9 @@ export const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative pt-20 sm:pt-24 pb-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden"
+      className="relative pt-24 sm:pt-28 pb-16 sm:pb-20 px-3 sm:px-6 lg:px-8 min-h-screen flex items-center overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-blue-950/30 to-gray-900 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.15),rgba(15,23,42,0.6)_54%,rgba(17,24,39,0.95))] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
 
@@ -38,7 +38,7 @@ export const HeroSection = () => {
           Mobile:  single column, image on top, editor below
           Desktop: two equal columns side by side, vertically centred
         */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-10 sm:gap-12 md:gap-10 lg:gap-16 items-center">
 
           {/* ── LEFT: Profile image ── */}
           <motion.div
@@ -48,13 +48,13 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
             viewport={{ once: true }}
           >
-            <div className="relative group w-full max-w-[300px] sm:max-w-[340px] md:max-w-full">
+            <div className="relative group w-full max-w-[82vw] min-[380px]:max-w-[300px] sm:max-w-[360px] md:max-w-full">
               {/* Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/30 via-blue-500/20 to-violet-500/30 rounded-[2rem] blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
 
               {/* Image — height is responsive: shorter on mobile, taller on desktop */}
               <motion.div
-                className="relative w-full h-[320px] sm:h-[400px] md:h-[480px] lg:h-[520px] rounded-2xl overflow-hidden border-4 border-blue-500/70 shadow-2xl"
+                className="relative w-full aspect-[4/5] min-h-[260px] max-h-[340px] sm:max-h-[400px] md:h-[480px] md:max-h-none lg:h-[520px] rounded-[1.5rem] overflow-hidden border border-white/15 shadow-2xl shadow-black/40 ring-1 ring-blue-400/20"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 180 }}
               >
@@ -67,12 +67,12 @@ export const HeroSection = () => {
                   className="object-cover object-top"
                 />
                 {/* Online dot */}
-                <div className="absolute bottom-3 right-3 w-4 h-4 bg-green-500 border-2 border-gray-900 rounded-full shadow-lg animate-pulse" />
+                <div className="absolute bottom-4 right-4 w-4 h-4 bg-emerald-400 border-2 border-gray-950 rounded-full shadow-lg shadow-emerald-500/40 animate-pulse" />
               </motion.div>
 
               {/* Available badge */}
               <motion.div
-                className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-gray-800/95 px-4 py-1.5 rounded-full border border-blue-500/80 whitespace-nowrap flex items-center gap-2 backdrop-blur shadow-lg"
+                className="absolute -bottom-5 left-1/2 max-w-[92vw] -translate-x-1/2 bg-gray-950/90 px-4 py-2 rounded-full border border-cyan-300/30 whitespace-nowrap flex items-center gap-2 backdrop-blur-xl shadow-xl shadow-black/30"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -101,7 +101,7 @@ export const HeroSection = () => {
 
         {/* ── Stats row ── */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-14 sm:mt-16 md:mt-20"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mt-12 sm:mt-16 md:mt-20"
           initial="hidden"
           whileInView="visible"
           variants={{
@@ -119,11 +119,11 @@ export const HeroSection = () => {
               }}
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 300 }}
-              className="relative bg-gray-800/50 backdrop-blur rounded-xl p-4 sm:p-5 text-center border border-gray-700 hover:border-blue-500/40 hover:bg-gray-800/80 transition-all cursor-default overflow-hidden group"
+              className="relative min-h-24 bg-white/[0.045] backdrop-blur rounded-2xl p-3 sm:p-5 text-center border border-white/10 hover:border-cyan-300/35 hover:bg-white/[0.075] transition-all cursor-default overflow-hidden group shadow-lg shadow-black/10"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500 rounded-xl" />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400 mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-black text-cyan-300 mb-1">
                   {stat.value}
                 </div>
                 <div className="text-xs sm:text-sm text-gray-400 leading-tight">

@@ -41,36 +41,36 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? 'bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-800'
-          : 'bg-gray-900/90 border-b border-transparent'
+          ? 'bg-gray-950/80 backdrop-blur-xl shadow-2xl shadow-black/25 border-b border-white/10'
+          : 'bg-gray-950/55 backdrop-blur-md border-b border-white/[0.04]'
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent cursor-pointer select-none"
+            className="max-w-[72vw] md:max-w-[28vw] lg:max-w-none truncate text-sm sm:text-lg md:text-xl font-black tracking-[0.08em] sm:tracking-[0.16em] bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent cursor-pointer select-none"
             onClick={() => scrollToSection('home')}
           >
             BAMIDELE ADEMOLA
           </motion.div>
 
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 shadow-inner shadow-white/5">
             {navItems.map((section) => (
               <motion.button
                 key={section}
                 whileHover={{ scale: 1.05 }}
                 onClick={() => scrollToSection(section)}
-                className={`capitalize relative transition-colors ${activeSection === section
-                    ? 'text-blue-400'
-                    : 'text-gray-300 hover:text-blue-400'
+                className={`capitalize relative rounded-full px-2.5 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-all ${activeSection === section
+                    ? 'bg-blue-500/15 text-cyan-200 shadow-sm shadow-blue-500/20'
+                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
                   }`}
               >
                 {section}
                 {activeSection === section && (
                   <motion.span
                     layoutId="activeIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-400"
+                    className="absolute inset-x-3 -bottom-1 h-0.5 rounded-full bg-cyan-300"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -79,7 +79,7 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
           </div>
 
           <button
-            className="md:hidden text-gray-300 hover:text-blue-400 transition-colors"
+            className="md:hidden rounded-full border border-white/10 bg-white/5 p-2 text-gray-200 hover:border-blue-400/40 hover:text-blue-300 transition-colors"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -94,7 +94,7 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="md:hidden bg-gray-900 border-t border-gray-800 px-4 pt-4 pb-6 space-y-2"
+            className="md:hidden border-t border-white/10 bg-gray-950/95 px-4 pt-4 pb-6 space-y-2 shadow-2xl shadow-black/40 backdrop-blur-xl"
           >
             {navItems.map((section) => (
               <motion.button
@@ -104,9 +104,9 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
                   scrollToSection(section);
                   setMobileMenuOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-2 rounded-lg capitalize transition-all duration-200 ${activeSection === section
-                    ? 'bg-blue-500/10 text-blue-400'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-blue-400'
+                className={`block w-full text-left px-4 py-3 rounded-xl capitalize transition-all duration-200 ${activeSection === section
+                    ? 'bg-blue-500/15 text-cyan-200 ring-1 ring-blue-400/20'
+                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
                   }`}
               >
                 {section}

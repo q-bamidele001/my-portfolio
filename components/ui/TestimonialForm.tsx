@@ -113,7 +113,7 @@ export const TestimonialForm = () => {
             Client Review
           </span>
         </div>
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-snug">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-white leading-snug">
           How was your experience working with me?
         </h3>
         <p className="text-gray-400 text-xs sm:text-sm mt-1.5">
@@ -122,14 +122,14 @@ export const TestimonialForm = () => {
       </div>
 
       {/* ── Step indicator ── */}
-      <div className="flex items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8">
+      <div className="flex items-center gap-1 sm:gap-2 mb-6 sm:mb-8 overflow-hidden">
         {STEPS.map((label, i) => (
           <React.Fragment key={i}>
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                 i < step  ? 'bg-green-500 text-white' :
                 i === step ? 'bg-blue-500 text-white ring-4 ring-blue-500/30' :
-                'bg-gray-700 text-gray-500'
+                'bg-gray-800 border border-white/10 text-gray-500'
               }`}>
                 {i < step ? '✓' : i + 1}
               </div>
@@ -140,7 +140,7 @@ export const TestimonialForm = () => {
               </span>
             </div>
             {i < STEPS.length - 1 && (
-              <div className={`flex-1 h-px min-w-[8px] transition-all duration-500 ${i < step ? 'bg-green-500' : 'bg-gray-700'}`} />
+              <div className={`flex-1 h-px min-w-[8px] transition-all duration-500 ${i < step ? 'bg-green-500' : 'bg-white/10'}`} />
             )}
           </React.Fragment>
         ))}
@@ -162,7 +162,7 @@ export const TestimonialForm = () => {
             <p className="text-xs sm:text-sm text-gray-400">Let's start with a bit about you</p>
 
             {/* Photo upload */}
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               {imagePreview ? (
                 <div className="relative flex-shrink-0">
                   <img src={imagePreview} alt="You" className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-blue-500" />
@@ -175,7 +175,7 @@ export const TestimonialForm = () => {
                   </button>
                 </div>
               ) : (
-                <label htmlFor="image" className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors bg-gray-800/50 group">
+                <label htmlFor="image" className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-dashed border-white/15 flex items-center justify-center cursor-pointer hover:border-cyan-300/60 transition-colors bg-gray-950/40 group">
                   <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 group-hover:text-blue-400 transition-colors" />
                   <input id="image" type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                 </label>
@@ -205,7 +205,7 @@ export const TestimonialForm = () => {
                     onChange={handleChange}
                     placeholder={f.placeholder}
                     required
-                    className="w-full px-3 sm:px-4 py-2.5 bg-gray-800/70 border border-gray-700 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-3 sm:px-4 py-2.5 bg-gray-950/45 border border-white/10 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 transition-all"
                   />
                 </div>
               ))}
@@ -223,7 +223,7 @@ export const TestimonialForm = () => {
                 onChange={handleChange}
                 placeholder="E-Commerce Platform, Mobile App, Dashboard..."
                 required
-                className="w-full px-3 sm:px-4 py-2.5 bg-gray-800/70 border border-gray-700 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-3 sm:px-4 py-2.5 bg-gray-950/45 border border-white/10 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 transition-all"
               />
             </div>
           </motion.div>
@@ -243,7 +243,7 @@ export const TestimonialForm = () => {
               How would you rate the overall quality of work delivered?
             </p>
 
-            <div className="flex items-center gap-2 sm:gap-3 mb-4">
+            <div className="flex w-full items-center justify-center gap-1 sm:gap-3 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <motion.button
                   key={star}
@@ -255,9 +255,9 @@ export const TestimonialForm = () => {
                   whileTap={{ scale: 0.88 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                   // Large touch target for mobile
-                  className="p-1 sm:p-0"
+                  className="p-1 sm:p-0 min-w-0"
                 >
-                  <Star className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-all duration-150 ${
+                  <Star className={`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-all duration-150 ${
                     star <= (hoveredStar || formData.rating)
                       ? 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]'
                       : 'text-gray-600'
@@ -311,7 +311,7 @@ export const TestimonialForm = () => {
                     ...p,
                     feedback: p.feedback ? `${p.feedback} ${prompt}.` : `${prompt}.`,
                   }))}
-                  className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 active:scale-95 transition-all"
+                  className="px-2.5 sm:px-3 py-1 text-xs rounded-full bg-blue-500/10 border border-blue-400/25 text-cyan-300 hover:bg-blue-500/20 active:scale-95 transition-all"
                 >
                   + {prompt}
                 </button>
@@ -326,7 +326,7 @@ export const TestimonialForm = () => {
                 rows={5}
                 maxLength={500}
                 placeholder="Bamidele delivered exactly what we needed. His attention to detail and technical expertise..."
-                className="w-full px-3 sm:px-4 py-3 bg-gray-800/70 border border-gray-700 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                className="w-full px-3 sm:px-4 py-3 bg-gray-950/45 border border-white/10 rounded-xl text-white text-sm placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-300/40 transition-all resize-none"
               />
               <div className="absolute bottom-3 right-3 text-xs text-gray-600">
                 {formData.feedback.length}/500
@@ -352,12 +352,12 @@ export const TestimonialForm = () => {
       )}
 
       {/* ── Navigation ── */}
-      <div className="flex items-center justify-between mt-6 sm:mt-8 gap-3">
+      <div className="flex flex-col-reverse min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between mt-6 sm:mt-8 gap-3">
         {step > 0 ? (
           <button
             type="button"
             onClick={() => setStep(s => s - 1)}
-            className="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-white active:scale-95 transition-all"
+            className="w-full min-[380px]:w-auto px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm text-gray-400 border border-white/10 hover:border-white/25 hover:text-white active:scale-95 transition-all"
           >
             ← Back
           </button>
@@ -370,7 +370,7 @@ export const TestimonialForm = () => {
             disabled={!canAdvance()}
             whileHover={{ scale: canAdvance() ? 1.03 : 1 }}
             whileTap={{ scale: 0.96 }}
-            className="px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 transition-all"
+            className="w-full min-[380px]:w-auto px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-blue-500 to-cyan-600 text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 transition-all"
           >
             Continue →
           </motion.button>
@@ -381,7 +381,7 @@ export const TestimonialForm = () => {
             disabled={isSubmitting || !canAdvance()}
             whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
             whileTap={{ scale: 0.96 }}
-            className="flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-600 text-white disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30 transition-all"
+            className="flex w-full min-[380px]:w-auto items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-violet-500 to-pink-600 text-white disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30 transition-all"
           >
             {isSubmitting ? (
               <><div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> Submitting...</>

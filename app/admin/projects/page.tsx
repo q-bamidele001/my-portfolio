@@ -205,11 +205,11 @@ export default function ProjectsManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-900 px-3 py-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <div>
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-8">
+          <div className="min-w-0">
             <button
               onClick={() => router.push('/admin')}
               className="text-blue-400 hover:text-blue-300 transition-colors mb-4 flex items-center gap-2"
@@ -217,8 +217,8 @@ export default function ProjectsManagement() {
               <ArrowLeft className="w-4 h-4" />
               Back to Dashboard
             </button>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
-              <FolderKanban className="w-8 h-8 text-blue-400" />
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent flex items-center gap-3">
+              <FolderKanban className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400 flex-shrink-0" />
               Manage Projects
             </h1>
           </div>
@@ -227,7 +227,7 @@ export default function ProjectsManagement() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
+            className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
           >
             <Plus className="w-5 h-5" />
             Add New Project
@@ -241,20 +241,20 @@ export default function ProjectsManagement() {
             <p className="text-gray-400">Loading projects...</p>
           </div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-12 bg-gray-800/50 rounded-xl border border-gray-700">
+          <div className="text-center py-12 px-4 bg-gray-800/50 rounded-xl border border-gray-700">
             <FolderKanban className="w-16 h-16 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-400">No projects yet. Add your first one!</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {projects.map((project) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gray-800/50 rounded-xl overflow-hidden border border-gray-700 hover:border-gray-600 transition-all"
+                className="bg-gray-800/50 rounded-xl overflow-hidden border border-gray-700 hover:border-gray-600 transition-all min-w-0"
               >
-                <div className="relative h-48">
+                <div className="relative h-44 sm:h-48">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -264,7 +264,7 @@ export default function ProjectsManagement() {
                 </div>
 
                 <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                  <h3 className="break-words text-lg font-bold text-white mb-2">{project.title}</h3>
                   <p className="text-sm text-gray-400 mb-3 line-clamp-2">
                     {project.description}
                   </p>
@@ -285,7 +285,7 @@ export default function ProjectsManagement() {
                     )}
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-col min-[380px]:flex-row gap-2">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -300,7 +300,7 @@ export default function ProjectsManagement() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleDelete(project.id)}
-                      className="flex items-center justify-center gap-2 px-3 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500 text-red-400 rounded-lg transition-all text-sm"
+                      className="flex min-[380px]:w-auto items-center justify-center gap-2 px-3 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500 text-red-400 rounded-lg transition-all text-sm"
                     >
                       <Trash2 className="w-4 h-4" />
                     </motion.button>
@@ -318,24 +318,24 @@ export default function ProjectsManagement() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
               onClick={() => !uploadingImage && resetForm()}
             >
               <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
-                className="bg-gray-800 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-gray-800 rounded-t-2xl sm:rounded-2xl p-4 sm:p-6 max-w-2xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold text-white">
+                <div className="flex justify-between items-center gap-4 mb-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
                     {editingId ? 'Edit Project' : 'Add New Project'}
                   </h2>
                   <button
                     onClick={resetForm}
                     disabled={uploadingImage}
-                    className="text-gray-400 hover:text-white transition-colors disabled:opacity-50"
+                    className="flex-shrink-0 text-gray-400 hover:text-white transition-colors disabled:opacity-50"
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -351,7 +351,7 @@ export default function ProjectsManagement() {
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                      className="w-full min-w-0 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white outline-none"
                       placeholder="My Awesome Project"
                     />
                   </div>
@@ -367,7 +367,7 @@ export default function ProjectsManagement() {
                       }
                       required
                       rows={3}
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white resize-none"
+                      className="w-full min-w-0 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white resize-none outline-none"
                       placeholder="Project description..."
                     />
                   </div>
@@ -381,7 +381,7 @@ export default function ProjectsManagement() {
                       value={formData.tech}
                       onChange={(e) => setFormData({ ...formData, tech: e.target.value })}
                       required
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                      className="w-full min-w-0 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white outline-none"
                       placeholder="React, Next.js, TypeScript, MongoDB"
                     />
                   </div>
@@ -398,7 +398,7 @@ export default function ProjectsManagement() {
                           setFormData({ ...formData, liveUrl: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full min-w-0 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white outline-none"
                         placeholder="https://..."
                       />
                     </div>
@@ -414,7 +414,7 @@ export default function ProjectsManagement() {
                           setFormData({ ...formData, githubUrl: e.target.value })
                         }
                         required
-                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+                        className="w-full min-w-0 px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white outline-none"
                         placeholder="https://github.com/..."
                       />
                     </div>
@@ -429,7 +429,7 @@ export default function ProjectsManagement() {
                         <img
                           src={imagePreview}
                           alt="Preview"
-                          className="w-full h-48 object-cover rounded-lg"
+                          className="w-full h-40 sm:h-48 object-cover rounded-lg"
                         />
                         <button
                           type="button"
@@ -443,7 +443,7 @@ export default function ProjectsManagement() {
                         </button>
                       </div>
                     ) : (
-                      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 transition-colors px-4 text-center">
                         <Upload className="w-8 h-8 text-gray-400 mb-2" />
                         <span className="text-sm text-gray-400">Click to upload image</span>
                         <input
@@ -456,7 +456,7 @@ export default function ProjectsManagement() {
                     )}
                   </div>
 
-                  <div className="flex gap-3 pt-4">
+                  <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
                     <button
                       type="button"
                       onClick={resetForm}
