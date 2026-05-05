@@ -1,70 +1,166 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
-import { Testimonial } from '@/lib/types';
+import { Star, Quote, Pencil, Check, X } from 'lucide-react';
+
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  image: string;
+  rating: number;
+  feedback: string;
+  project: string;
+  date: string;
+  displayDate?: string | null;
+}
 
 interface TestimonialCardProps {
   testimonial: Testimonial;
+  onDateChange?: (id: string, newDate: string) => Promise<void>;
 }
 
-export const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
+export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [monthValue, setMonthValue] = useState<string>(
+    testimonial.displayDate ? testimonial.displayDate.slice(0, 7) : ''
+  );
+  const [isSaving, setIsSaving] = useState(false);
+  const [displayedDate, setDisplayedDate] = useState(testimonial.date);
+
+  const handleSave = async () => {
+    if (!onDateChange || !monthValue) return;
+    setIsSaving(true);
+    try {
+      await onDateChange(testimonial.id, `${monthValue}-01`);
+      const [year, month] = monthValue.split('-');
+      const formatted = new Date(Number(year), Number(month) - 1, 1).toLocaleDateString('en-US', {
+        month: 'long',
+        year: 'numeric',
+      });
+      setDisplayedDate(formatted);
+      setIsEditing(false);
+    } catch (err) {
+      console.error('Failed to update date:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setMonthValue(testimonial.displayDate ? testimonial.displayDate.slice(0, 7) : '');
+    setIsEditing(false);
+  };
+
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      viewport={{ once: true }}
-      className="bg-gray-800 rounded-2xl p-6 sm:p-8 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 animate-fadeIn"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      // ✅ flex flex-col + fixed height ensures all cards are same height in the row
+      // No absolute positioning inside — everything flows naturally
+      className="relative bg-gray-800/90 border border-white/5 rounded-2xl p-4 sm:p-5
+                 shadow-lg hover:shadow-purple-500/20 hover:border-purple-500/30
+                 transition-all duration-300 flex flex-col"
+      style={{ minHeight: '220px' }}
     >
-      <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-4">
-        <div className="relative self-center sm:self-auto">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-500">
-            {testimonial.image ? (
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                {testimonial.name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
-              </div>
-            )}
-          </div>
-          <Quote className="absolute -top-2 -right-2 w-6 h-6 sm:w-7 sm:h-7 text-blue-400 bg-gray-800 rounded-full p-1" />
+      {/* Faint background quote mark — purely decorative, non-overlapping */}
+      <Quote className="absolute top-3 right-3 w-7 h-7 text-blue-500/10 pointer-events-none" />
+
+      {/* ── Header: avatar + name/role/stars ── */}
+      <div className="flex items-center gap-3 mb-3">
+        {/* Avatar */}
+        <div className="flex-shrink-0 w-11 h-11 rounded-full overflow-hidden border-2 border-blue-500/60">
+          {testimonial.image ? (
+            <img
+              src={testimonial.image}
+              alt={testimonial.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600
+                            flex items-center justify-center text-white font-bold text-sm">
+              {testimonial.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+            </div>
+          )}
         </div>
 
-        <div className="flex-1 text-center sm:text-left">
-          <h4 className="font-bold text-white text-lg sm:text-xl">{testimonial.name}</h4>
-          <p className="text-sm text-gray-400">{testimonial.role} at {testimonial.company}</p>
-          <div className="flex justify-center sm:justify-start items-center gap-1 mt-2">
-            {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        {/* Name / role / stars — min-w-0 allows truncate to work */}
+        <div className="flex-1 min-w-0">
+          <p className="font-bold text-white text-sm leading-tight truncate">
+            {testimonial.name}
+          </p>
+          <p className="text-xs text-gray-400 leading-tight truncate">
+            {testimonial.role} · {testimonial.company}
+          </p>
+          <div className="flex items-center gap-0.5 mt-1">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-3 h-3 flex-shrink-0 ${
+                  i < testimonial.rating
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'text-gray-600'
+                }`}
+              />
             ))}
           </div>
         </div>
       </div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-        className="text-gray-300 mb-6 italic leading-relaxed text-sm sm:text-base text-center sm:text-left"
-      >
-        “{testimonial.feedback}”
-      </motion.p>
+      {/* ── Feedback — flex-1 so it fills available space ── */}
+      <p className="text-gray-300 text-xs sm:text-sm leading-relaxed italic flex-1 mb-3">
+        "{testimonial.feedback}"
+      </p>
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-4 border-t border-gray-700 text-center sm:text-left">
-        <span className="text-sm text-blue-400 font-medium">
-          Project: {testimonial.project}
-        </span>
-        <span className="text-xs text-gray-500">{testimonial.date}</span>
+      {/* ── Footer: project name + date ── */}
+      <div className="pt-3 border-t border-white/10 mt-auto">
+        {/* Project on its own line so it never collides with date */}
+        <p className="text-xs text-blue-400 font-medium truncate mb-1">
+          {testimonial.project}
+        </p>
+
+        {/* Date row */}
+        {onDateChange && isEditing ? (
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <input
+              type="month"
+              value={monthValue}
+              onChange={(e) => setMonthValue(e.target.value)}
+              className="bg-gray-700 border border-gray-600 text-white text-xs rounded
+                         px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={handleSave}
+              disabled={isSaving || !monthValue}
+              className="text-green-400 hover:text-green-300 disabled:opacity-50"
+              title="Save"
+            >
+              <Check className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={handleCancel}
+              className="text-red-400 hover:text-red-300"
+              title="Cancel"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500">{displayedDate}</span>
+            {onDateChange && (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="text-gray-600 hover:text-gray-400 transition-colors ml-1"
+                title="Edit date"
+              >
+                <Pencil className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );

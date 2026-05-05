@@ -1,13 +1,21 @@
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-
-  eslint: {
-    ignoreDuringBuilds: true,
+  // Remove or comment out: output: 'export'
+  // API routes require server-side rendering
+  
+  images: {
+    domains: ['res.cloudinary.com'], // For Cloudinary images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
   },
-
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  
+  // Enable API routes (default, but explicit)
+  // output: 'standalone', // Use this for server deployment, not 'export'
 };
 
-export default nextConfig;
+module.exports = nextConfig;

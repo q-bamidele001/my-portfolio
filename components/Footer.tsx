@@ -6,6 +6,8 @@ interface FooterProps {
 }
 
 export const Footer = ({ scrollToSection }: FooterProps) => {
+  const currentYear = new Date().getFullYear(); // Dynamic year
+
   return (
     <footer className="bg-gray-900 border-t border-gray-800 py-12 px-4">
       <div className="max-w-7xl mx-auto">
@@ -83,7 +85,7 @@ export const Footer = ({ scrollToSection }: FooterProps) => {
           transition={{ duration: 0.8 }}
         >
           <p className="text-xs sm:text-sm md:text-base leading-relaxed">
-            © 2025 Bamidele Ademola. Crafted with 💙 and ⚛️ React
+            © {currentYear} Bamidele Ademola. Crafted with 💙 and ⚛️ React
           </p>
 
           <motion.p

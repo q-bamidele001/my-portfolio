@@ -1,163 +1,303 @@
-
 'use client';
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Code2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// ── Auto-updating values (matches HeroSection) ────────────────────────────
+const CAREER_START_YEAR = 2023;
+function getYears() { return new Date().getFullYear() - CAREER_START_YEAR; }
+// ─────────────────────────────────────────────────────────────────────────
+
+const TYPING_SPEED = 35;   // ms per character
+const LINE_PAUSE   = 700;  // ms pause after each line finishes
+
+// Full code block — rendered line by line
+const CODE_LINES = [
+  // imports
+  { type: 'import', content: `import { Developer } from 'bamidele-ademola';` },
+  { type: 'import', content: `import { React, NextJS, Node } from 'stack';` },
+  { type: 'blank',  content: '' },
+  // object declaration
+  { type: 'keyword', content: `const profile = {` },
+  { type: 'field',   content: `  name:     "Bamidele Quayum Ademola",` },
+  { type: 'field',   content: `  title:    "Full Stack Developer",` },
+  { type: 'field',   content: `  focus:    "Cybersecurity & Cloud Engineering",` },
+  { type: 'field',   content: `  location: "Ibadan, Nigeria 🇳🇬",` },
+  { type: 'field',   content: `  open:      true,   // available for hire ✅` },
+  { type: 'keyword', content: `};` },
+  { type: 'blank',   content: '' },
+  // skills array
+  { type: 'keyword', content: `const stack = {` },
+  { type: 'field',   content: `  frontend: ["React", "Next.js", "Vue", "TypeScript"],` },
+  { type: 'field',   content: `  backend:  ["Node.js", "Express", "MongoDB", "REST"],` },
+  { type: 'field',   content: `  mobile:   ["React Native", "Cross-platform"],` },
+  { type: 'field',   content: `  security: ["Pen Testing", "Ethical Hacking"],` },
+  { type: 'field',   content: `  cloud:    ["AWS", "Azure", "Docker", "CI/CD"],` },
+  { type: 'keyword', content: `};` },
+  { type: 'blank',   content: '' },
+  // comment footer
+  { type: 'comment', content: `// 🚀 10+ projects · 100% client satisfaction` },
+];
+
+// Syntax-highlight a rendered line into coloured spans
+function highlight(line: { type: string; content: string }) {
+  const { type, content } = line;
+
+  if (type === 'blank') return <span>&nbsp;</span>;
+
+  if (type === 'comment') {
+    return <span className="text-gray-500 italic">{content}</span>;
+  }
+
+  if (type === 'import') {
+    // "import" keyword blue, string orange, rest gray
+    return (
+      <span>
+        <span className="text-blue-400">import</span>
+        <span className="text-gray-300">
+          {content.slice(6, content.indexOf(' from '))}
+        </span>
+        <span className="text-blue-400"> from </span>
+        <span className="text-orange-300">
+          {content.slice(content.indexOf(' from ') + 6)}
+        </span>
+      </span>
+    );
+  }
+
+  if (type === 'keyword') {
+    // "const" purple, identifier green, rest white
+    if (content.startsWith('const')) {
+      const eq = content.indexOf('=');
+      return (
+        <span>
+          <span className="text-purple-400">const </span>
+          <span className="text-green-400">{content.slice(6, eq).trim()}</span>
+          <span className="text-white"> {content.slice(eq)}</span>
+        </span>
+      );
+    }
+    return <span className="text-white">{content}</span>;
+  }
+
+  if (type === 'field') {
+    // key: teal, string value: orange, array brackets: gray
+    const colon = content.indexOf(':');
+    const key   = content.slice(0, colon).trimStart();
+    const rest  = content.slice(colon + 1).trimStart();
+    const indent = content.slice(0, content.indexOf(key.trimStart()[0]));
+
+    return (
+      <span>
+        <span className="text-gray-400">{indent}</span>
+        <span className="text-teal-300">{key.trim()}</span>
+        <span className="text-gray-400">: </span>
+        {rest.startsWith('"') || rest.startsWith("'") ? (
+          <span className="text-orange-300">{rest}</span>
+        ) : rest.startsWith('[') ? (
+          <>
+            <span className="text-gray-400">[</span>
+            {rest.slice(1, -2).split(',').map((item, i, arr) => (
+              <span key={i}>
+                <span className="text-orange-300">{item.trim()}</span>
+                {i < arr.length - 1 && <span className="text-gray-400">, </span>}
+              </span>
+            ))}
+            <span className="text-gray-400">]{rest.slice(-1)}</span>
+          </>
+        ) : (
+          <span className="text-blue-300">{rest}</span>
+        )}
+      </span>
+    );
+  }
+
+  return <span className="text-gray-300">{content}</span>;
+}
 
 export const VSCodeTypingEffect = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentLine, setCurrentLine] = useState(0);
-  const [cursorVisible, setCursorVisible] = useState(true);
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [currentChar, setCurrentChar]   = useState(0);
+  const [cursorOn, setCursorOn]         = useState(true);
+  const [done, setDone]                 = useState(false);
 
-  const lines = [
-    { tag: 'h1', text: 'My name is Bamidele Quayum Ademola', color: 'text-blue-400' },
-    { tag: 'h2', text: 'Full Stack Developer & Cybersecurity Expert', color: 'text-green-400' },
-    { tag: 'div', text: 'Building secure, scalable web & mobile solutions', color: 'text-yellow-400' },
-    { tag: 'h2', text: 'React • Next.js • Node.js • AWS • Ethical Hacking', color: 'text-purple-400' },
-    { tag: 'p', text: 'Transforming ideas into production-ready applications', color: 'text-cyan-400' },
-  ];
-
+  // Cursor blink
   useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, 500);
-    return () => clearInterval(cursorInterval);
+    const id = setInterval(() => setCursorOn(p => !p), 530);
+    return () => clearInterval(id);
   }, []);
 
+  // Typing engine
   useEffect(() => {
-    if (currentLine >= lines.length) return;
-    const fullText = `<${lines[currentLine].tag}>${lines[currentLine].text}</${lines[currentLine].tag}>`;
+    if (done) return;
+    if (visibleLines >= CODE_LINES.length) { setDone(true); return; }
 
-    if (displayedText.length < fullText.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(fullText.slice(0, displayedText.length + 1));
-      }, 40);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setCurrentLine((prev) => prev + 1);
-        setDisplayedText('');
-      }, 800);
-      return () => clearTimeout(timeout);
+    const lineLen = CODE_LINES[visibleLines].content.length;
+
+    if (CODE_LINES[visibleLines].type === 'blank') {
+      // Blank lines appear instantly
+      const id = setTimeout(() => {
+        setVisibleLines(p => p + 1);
+        setCurrentChar(0);
+      }, 120);
+      return () => clearTimeout(id);
     }
-  }, [displayedText, currentLine]);
 
-  const easeCurve = [0.22, 0.61, 0.36, 1];
+    if (currentChar < lineLen) {
+      const id = setTimeout(() => setCurrentChar(p => p + 1), TYPING_SPEED);
+      return () => clearTimeout(id);
+    } else {
+      const id = setTimeout(() => {
+        setVisibleLines(p => p + 1);
+        setCurrentChar(0);
+      }, LINE_PAUSE);
+      return () => clearTimeout(id);
+    }
+  }, [visibleLines, currentChar, done]);
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: easeCurve as any }, 
-  };
+  const years = getYears();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: easeCurve as any }}
       viewport={{ once: true }}
-      className="
-        bg-[#1e1e1e] rounded-xl sm:rounded-2xl shadow-2xl
-        px-2 py-3 xs:px-3 sm:p-4 md:p-6 font-mono
-        text-[9px] xs:text-[10px] sm:text-[10px] md:text-sm
-        overflow-hidden border border-gray-700
-        w-[96%] xs:w-[92%] sm:w-[70%] md:w-[550px] lg:w-[650px] xl:w-[750px]
-        mx-auto mt-2 sm:mt-4 transition-all duration-300
-        overflow-x-auto
-      "
+      transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
+      className="w-full max-w-[96vw] sm:max-w-[560px] md:max-w-[600px] lg:max-w-[680px] mx-auto"
     >
-      <div className="flex items-center justify-between mb-4 border-b border-gray-700 pb-2">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
+      {/* ── Editor window ── */}
+      <div className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-gray-700/60 shadow-2xl shadow-black/50 overflow-hidden">
+
+        {/* Title bar */}
+        <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-[#161b22] border-b border-gray-700/60">
+          {/* Traffic lights */}
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all" />
+            <div className="w-3 h-3 rounded-full bg-[#febc2e] hover:brightness-110 transition-all" />
+            <div className="w-3 h-3 rounded-full bg-[#28c840] hover:brightness-110 transition-all" />
           </div>
-          <span className="text-gray-400 text-xs sm:text-sm ml-2 truncate">about-me.tsx</span>
-        </div>
-        <Code2 className="text-gray-500 w-4 h-4 sm:w-5 sm:h-5" />
-      </div>
 
-      <div className="space-y-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-        <div className="space-y-2">
-          {lines.slice(0, currentLine).map((line, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, ease: easeCurve as any }}
-              className={`${line.color} flex gap-2 whitespace-pre-wrap`}
-            >
-              <span className="text-gray-500 select-none w-6 text-right">{idx + 1}</span>
-              <span>&lt;{line.tag}&gt;{line.text}&lt;/{line.tag}&gt;</span>
-            </motion.div>
-          ))}
+          {/* Tab */}
+          <div className="flex items-center gap-1.5 bg-[#0d1117] px-3 py-1 rounded-md border border-gray-700/40">
+            <div className="w-2 h-2 rounded-sm bg-blue-400" />
+            <span className="text-[10px] sm:text-xs text-gray-400 font-mono">portfolio.tsx</span>
+          </div>
 
-          {currentLine < lines.length && (
-            <div className={`${lines[currentLine].color} flex gap-2`}>
-              <span className="text-gray-500 select-none w-6 text-right">{currentLine + 1}</span>
-              <span>
-                {displayedText}
-                <span
-                  className={`${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
-                >
-                  |
-                </span>
-              </span>
-            </div>
-          )}
+          {/* Status dots */}
+          <div className="flex items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-[10px] text-gray-500 font-mono hidden sm:block">TypeScript</span>
+          </div>
         </div>
 
-        {currentLine >= lines.length && (
-          <motion.div
-            className="mt-6 space-y-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, ease: easeCurve as any }}
-          >
-            <div className="flex gap-2 text-gray-400">
-              <span className="text-gray-500 select-none w-6 text-right">{lines.length + 1}</span>
-              <span className="text-gray-500">{'// Core Competencies'}</span>
-            </div>
-
-            <div className="flex gap-2 text-green-400">
-              <span className="text-gray-500 select-none w-6 text-right">{lines.length + 2}</span>
-              <span>
-                <span className="text-purple-400">const</span> skills = [
-              </span>
-            </div>
-
-            {[
-              "'Frontend: React, Next.js, TypeScript',",
-              "'Backend: Node.js, Express, MongoDB',",
-              "'Mobile: React Native, Cross-platform',",
-              "'Security: Penetration Testing, Ethical Hacking',",
-              "'Cloud: AWS, Azure, Docker, CI/CD'",
-            ].map((skill, i) => (
-              <div key={i} className="flex gap-2 text-orange-400 ml-6">
-                <span className="text-gray-500 select-none w-6 text-right">
-                  {lines.length + 3 + i}
-                </span>
-                <span>{skill}</span>
+        {/* ── Editor body ── */}
+        <div className="flex overflow-hidden">
+          {/* Gutter */}
+          <div className="flex-shrink-0 w-7 sm:w-9 bg-[#0d1117] border-r border-gray-800/60 pt-3 pb-4 flex flex-col items-end pr-1.5 sm:pr-2 select-none">
+            {CODE_LINES.slice(0, Math.max(visibleLines + 1, 1)).map((_, i) => (
+              <div
+                key={i}
+                className={`text-[9px] sm:text-[11px] leading-5 sm:leading-6 font-mono ${
+                  i === visibleLines - 1 ? 'text-gray-400' : 'text-gray-600'
+                }`}
+              >
+                {i + 1}
               </div>
             ))}
+          </div>
 
-            <div className="flex gap-2 text-green-400">
-              <span className="text-gray-500 select-none w-6 text-right">{lines.length + 8}</span>
-              <span>];</span>
-            </div>
+          {/* Code area */}
+          <div className="flex-1 overflow-x-auto p-3 sm:p-4 min-h-[260px] sm:min-h-[320px]">
+            <div className="space-y-0 font-mono text-[10px] sm:text-[12px] md:text-[13px] leading-5 sm:leading-6">
 
-            <div className="flex gap-2 text-gray-500 mt-4">
-              <span className="select-none w-6 text-right">{lines.length + 9}</span>
-              <span>{'// 💼 2+ years building production applications'}</span>
+              {/* Fully typed lines */}
+              {CODE_LINES.slice(0, visibleLines).map((line, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.15 }}
+                  className="whitespace-pre flex"
+                >
+                  {highlight(line)}
+                </motion.div>
+              ))}
+
+              {/* Currently typing line */}
+              {!done && visibleLines < CODE_LINES.length && (
+                <div className="whitespace-pre flex">
+                  {CODE_LINES[visibleLines].type === 'blank' ? (
+                    <span>&nbsp;</span>
+                  ) : (
+                    <>
+                      {highlight({
+                        ...CODE_LINES[visibleLines],
+                        content: CODE_LINES[visibleLines].content.slice(0, currentChar),
+                      })}
+                      <span
+                        className={`inline-block w-[2px] h-[1em] bg-blue-400 ml-px align-middle transition-opacity duration-100 ${
+                          cursorOn ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Idle cursor after done */}
+              {done && (
+                <span
+                  className={`inline-block w-[2px] h-[1em] bg-blue-400 ml-px align-middle transition-opacity duration-100 ${
+                    cursorOn ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              )}
             </div>
-            <div className="flex gap-2 text-gray-500">
-              <span className="select-none w-6 text-right">{lines.length + 10}</span>
-              <span>{'// 🚀 10+ projects delivered with 100% client satisfaction'}</span>
-            </div>
+          </div>
+        </div>
+
+        {/* ── Status bar ── */}
+        <div className="flex items-center justify-between px-3 sm:px-4 py-1 bg-blue-600 text-white text-[9px] sm:text-[11px] font-mono">
+          <div className="flex items-center gap-3">
+            <span>⎇ main</span>
+            <span className="hidden sm:block">✓ No errors</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:block">{years}+ yrs exp</span>
+            <span>TypeScript</span>
+            <span>UTF-8</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Minimap stat pills ── */}
+      <AnimatePresence>
+        {done && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-2 mt-4"
+          >
+            {[
+              { label: 'Projects', value: '10+',    color: 'border-blue-500/40 text-blue-400'   },
+              { label: 'Clients',  value: '4+',     color: 'border-green-500/40 text-green-400' },
+              { label: 'Stack',    value: '20+ Tech',color: 'border-purple-500/40 text-purple-400' },
+              { label: 'Uptime',   value: '100%',   color: 'border-yellow-500/40 text-yellow-400' },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 + i * 0.07 }}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full border bg-gray-900/60 backdrop-blur text-[10px] sm:text-xs font-mono ${p.color}`}
+              >
+                <span className="font-bold">{p.value}</span>
+                <span className="text-gray-500">{p.label}</span>
+              </motion.div>
+            ))}
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </motion.div>
   );
 };

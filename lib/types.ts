@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface Project {
-  id: number;
+  id: string; // Changed from number to string (MongoDB _id)
   title: string;
   description: string;
   tech: string[];
@@ -24,7 +24,7 @@ export interface ContactFormData {
 }
 
 export interface Testimonial {
-  id: number;
+  id: string; // Changed from number to string (MongoDB _id)
   name: string;
   role: string;
   company: string;
