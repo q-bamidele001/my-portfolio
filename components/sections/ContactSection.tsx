@@ -105,7 +105,7 @@ export const ContactSection = () => {
                   label: "View Bamidele's LinkedIn profile",
                 },
                 {
-                  href: 'https://bamideleademola.dev',
+                  href: 'https://bamideleademola.com.ng',
                   icon: Code,
                   color: 'hover:bg-purple-600',
                   label: "Visit Bamidele's portfolio website",
