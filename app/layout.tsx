@@ -93,15 +93,17 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/*
-          ✅ Preload hero image — fixes "LCP request discovery" warning.
-          Browser fetches this before it even parses the JS bundle,
-          so the hero photo appears immediately on mobile.
+          ✅ fetchpriority="high" — PageSpeed flagged this was missing.
+          Tells the browser this image is the most important resource
+          to download first, directly fixing LCP on mobile.
         */}
         <link
           rel="preload"
           href="/images/bamidele01.jpg"
           as="image"
           type="image/jpeg"
+          // @ts-ignore — fetchpriority is valid HTML but not yet in TS types
+          fetchpriority="high"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
