@@ -4,6 +4,8 @@ import connectDB from '@/lib/mongodb';
 import Testimonial from '@/lib/models/Testimonial';
 import { uploadToCloudinary, deleteFromCloudinary } from '@/lib/cloudinary';
 
+export const dynamic = 'force-dynamic';
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ─────────────────────────────────────────────

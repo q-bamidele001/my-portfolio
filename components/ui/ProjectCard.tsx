@@ -9,18 +9,19 @@ import { Project } from '@/lib/types';
 interface ProjectCardProps {
   project: Project;
   index?: number;
+  priority?: boolean; // ← NEW: for LCP fix
 }
 
-export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
+export const ProjectCard = ({ project, index = 0, priority = false }: ProjectCardProps) => {
   const [hovered, setHovered] = useState(false);
 
   const accents = [
-    { border: 'from-blue-500 to-cyan-400',    badge: 'bg-blue-500/20 text-blue-400 border-blue-500/30',       arrow: 'text-blue-400'    },
-    { border: 'from-purple-500 to-pink-500',  badge: 'bg-purple-500/20 text-purple-400 border-purple-500/30', arrow: 'text-purple-400'  },
+    { border: 'from-blue-500 to-cyan-400',    badge: 'bg-blue-500/20 text-blue-400 border-blue-500/30',          arrow: 'text-blue-400'    },
+    { border: 'from-purple-500 to-pink-500',  badge: 'bg-purple-500/20 text-purple-400 border-purple-500/30',    arrow: 'text-purple-400'  },
     { border: 'from-emerald-500 to-teal-400', badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30', arrow: 'text-emerald-400' },
-    { border: 'from-orange-500 to-amber-400', badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30', arrow: 'text-orange-400'  },
-    { border: 'from-rose-500 to-pink-400',    badge: 'bg-rose-500/20 text-rose-400 border-rose-500/30',       arrow: 'text-rose-400'    },
-    { border: 'from-sky-500 to-blue-400',     badge: 'bg-sky-500/20 text-sky-400 border-sky-500/30',         arrow: 'text-sky-400'     },
+    { border: 'from-orange-500 to-amber-400', badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',    arrow: 'text-orange-400'  },
+    { border: 'from-rose-500 to-pink-400',    badge: 'bg-rose-500/20 text-rose-400 border-rose-500/30',          arrow: 'text-rose-400'    },
+    { border: 'from-sky-500 to-blue-400',     badge: 'bg-sky-500/20 text-sky-400 border-sky-500/30',             arrow: 'text-sky-400'     },
   ];
   const accent = accents[index % accents.length];
 
@@ -35,28 +36,35 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
       className="relative group w-full min-w-0"
     >
       {/* Gradient border glow on hover */}
-      <div className={`absolute -inset-[1px] rounded-2xl bg-gradient-to-br ${accent.border} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[2px]`} />
+      <div
+        className={`absolute -inset-[1px] rounded-2xl bg-gradient-to-br ${accent.border} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[2px]`}
+      />
 
       <div className="relative bg-[#0f1629]/95 rounded-2xl overflow-hidden border border-white/10 shadow-xl shadow-black/35 flex min-w-0 flex-col h-full ring-1 ring-white/[0.03]">
 
-        {/* ── Image + overlay ── */}
+        {/* ── Image ── */}
         <div className="relative h-48 sm:h-52 overflow-hidden flex-shrink-0 bg-gray-950">
           {project.image ? (
             <Image
               src={project.image}
               alt={project.title}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              // ✅ FIXED: proper sizes for layout (was missing / wrong)
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className={`object-cover transition-transform duration-700 ${hovered ? 'scale-110' : 'scale-100'}`}
-              priority={false}
+              // ✅ FIXED: first card eager, rest lazy → fixes LCP warning
+              priority={priority}
+              loading={priority ? 'eager' : 'lazy'}
             />
           ) : (
-            <div className={`h-full w-full bg-gradient-to-br ${accent.border} flex items-center justify-center`}>
+            <div
+              className={`h-full w-full bg-gradient-to-br ${accent.border} flex items-center justify-center`}
+            >
               <Code className="w-16 h-16 text-white opacity-40" />
             </div>
           )}
 
-          {/* Dark gradient at bottom of image */}
+          {/* Dark gradient at bottom */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f1629] via-[#0f1629]/40 to-transparent" />
 
           {/* Hover overlay with action buttons */}
@@ -77,7 +85,7 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.05 }}
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors shadow-lg shadow-black/20"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
@@ -110,10 +118,14 @@ export const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             <h3 className="min-w-0 break-words text-base sm:text-lg font-bold text-white leading-snug group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
               {project.title}
             </h3>
-            <ArrowUpRight className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-all duration-300 ${hovered ? accent.arrow + ' translate-x-0.5 -translate-y-0.5' : 'text-gray-600'}`} />
+            <ArrowUpRight
+              className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-all duration-300 ${
+                hovered ? accent.arrow + ' translate-x-0.5 -translate-y-0.5' : 'text-gray-600'
+              }`}
+            />
           </div>
 
-          {/* ✅ Full description — no line-clamp */}
+          {/* Description — full, no clamp */}
           <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">
             {project.description}
           </p>

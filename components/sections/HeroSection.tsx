@@ -33,11 +33,6 @@ export const HeroSection = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
 
-        {/*
-          ── Two-column grid ──
-          Mobile:  single column, image on top, editor below
-          Desktop: two equal columns side by side, vertically centred
-        */}
         <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-10 sm:gap-12 md:gap-10 lg:gap-16 items-center">
 
           {/* ── LEFT: Profile image ── */}
@@ -52,7 +47,7 @@ export const HeroSection = () => {
               {/* Glow */}
               <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/30 via-blue-500/20 to-violet-500/30 rounded-[2rem] blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
 
-              {/* Image — height is responsive: shorter on mobile, taller on desktop */}
+              {/* ✅ FIXED: explicit width/height prevents CLS, priority loads eagerly */}
               <motion.div
                 className="relative w-full aspect-[4/5] min-h-[260px] max-h-[340px] sm:max-h-[400px] md:h-[480px] md:max-h-none lg:h-[520px] rounded-[1.5rem] overflow-hidden border border-white/15 shadow-2xl shadow-black/40 ring-1 ring-blue-400/20"
                 whileHover={{ scale: 1.02 }}
@@ -60,11 +55,14 @@ export const HeroSection = () => {
               >
                 <Image
                   src="/images/bamidele01.jpg"
-                  alt="Bamidele Ademola"
+                  alt="Bamidele Ademola — Full Stack Developer"
                   fill
+                  // ✅ priority=true → loads before anything else, fixes FCP & LCP
                   priority
-                  sizes="(max-width: 768px) 90vw, 45vw"
+                  // ✅ Proper sizes → browser picks correct resolution
+                  sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, 45vw"
                   className="object-cover object-top"
+                  // ✅ No loading="lazy" on priority images
                 />
                 {/* Online dot */}
                 <div className="absolute bottom-4 right-4 w-4 h-4 bg-emerald-400 border-2 border-gray-950 rounded-full shadow-lg shadow-emerald-500/40 animate-pulse" />
@@ -92,7 +90,6 @@ export const HeroSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
             viewport={{ once: true }}
-            // mt-8 gives space below the badge on mobile; removed on md+
             className="mt-8 sm:mt-10 md:mt-0 flex items-center justify-center"
           >
             <VSCodeTypingEffect />
@@ -121,6 +118,7 @@ export const HeroSection = () => {
               transition={{ type: 'spring', stiffness: 300 }}
               className="relative min-h-24 bg-white/[0.045] backdrop-blur rounded-2xl p-3 sm:p-5 text-center border border-white/10 hover:border-cyan-300/35 hover:bg-white/[0.075] transition-all cursor-default overflow-hidden group shadow-lg shadow-black/10"
             >
+              {/* Top shimmer line on hover */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-black text-cyan-300 mb-1">

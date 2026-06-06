@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote, Pencil, Check, X } from 'lucide-react';
+import Image from 'next/image';
 
 interface Testimonial {
   id: string;
@@ -71,12 +72,15 @@ export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardPr
       {/* ── Header: avatar + name/role/stars ── */}
       <div className="flex items-center gap-3 mb-3">
         {/* Avatar */}
-        <div className="flex-shrink-0 w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-300/50 shadow-md shadow-cyan-500/10">
+        <div className="relative flex-shrink-0 w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-300/50 shadow-md shadow-cyan-500/10">
           {testimonial.image ? (
-            <img
+            <Image
               src={testimonial.image}
               alt={testimonial.name}
-              className="w-full h-full object-cover"
+              fill
+              sizes="44px"
+              className="object-cover"
+              unoptimized={testimonial.image?.includes('blob:')} // handles preview URLs safely
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-violet-600
@@ -98,11 +102,10 @@ export const TestimonialCard = ({ testimonial, onDateChange }: TestimonialCardPr
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-3 h-3 flex-shrink-0 ${
-                  i < testimonial.rating
+                className={`w-3 h-3 flex-shrink-0 ${i < testimonial.rating
                     ? 'fill-yellow-400 text-yellow-400'
                     : 'text-gray-600'
-                }`}
+                  }`}
               />
             ))}
           </div>

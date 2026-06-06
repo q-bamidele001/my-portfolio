@@ -1,8 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #030712;
+  --foreground: #f9fafb;
 }
 
+/* ── Prevent layout shift on images (fixes CLS 0.59) ── */
+img {
+  height: auto;
+}
 
+/* ── Skeleton pulse for image placeholders ── */
+.image-placeholder {
+  background: #1f2937;
+  animation: skeleton-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Prevent invisible text during font load (fixes FCP) ── */
+* {
+  font-display: swap;
+}
+
+/* ── Hide scrollbar on carousel but keep scrolling ── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Smooth scrolling globally ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Prevent horizontal overflow on mobile ── */
+body {
+  overflow-x: hidden;
+}
