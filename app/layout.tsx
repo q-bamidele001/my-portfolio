@@ -92,23 +92,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/*
-          Preload hero image with high fetch priority.
-          Forces browser to download the image before CSS blocks render.
-          This directly fights the render-blocking LCP issue on mobile.
-        */}
+        {/* ✅ fetchPriority (camelCase) — fixes "Invalid DOM property" warning */}
         <link
           rel="preload"
           href="/images/bamidele01.jpg"
           as="image"
           type="image/jpeg"
           // @ts-ignore
-          fetchpriority="high"
+          fetchPriority="high"
         />
-        {/*
-          Preconnect to Cloudinary so project images load faster.
-          Saves ~150ms on mobile by establishing the connection early.
-        */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>

@@ -34,32 +34,33 @@ const IconWrapper: React.FC<IconWrapperProps> = ({ Icon, src, color = '', label 
       width={32}
       height={32}
       className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+      style={{ width: 'auto', height: 'auto' }} // ← fixes aspect ratio warning
     />
   ) : null;
 };
 
 export const TechIcons = {
-  React:       () => <IconWrapper Icon={SiReact}       color="text-cyan-400"   label="React.js" />,
-  Next:        () => <IconWrapper Icon={SiNextdotjs}   color="text-white"      label="Next.js" />,
-  Vue:         () => <IconWrapper Icon={SiVuedotjs}    color="text-green-500"  label="Vue.js" />,
-  TypeScript:  () => <IconWrapper Icon={SiTypescript}  color="text-blue-500"   label="TypeScript" />,
-  Tailwind:    () => <IconWrapper Icon={SiTailwindcss} color="text-sky-400"    label="Tailwind CSS" />,
-  GrGraphQl:   () => <IconWrapper Icon={GrGraphQl}     color="text-pink-500"   label="GraphQL" />,
-  HTML:        () => <IconWrapper Icon={SiHtml5}       color="text-orange-500" label="HTML5" />,
-  CSS:         () => <IconWrapper Icon={SiCss}         color="text-blue-500"   label="CSS3" />,
-  JavaScript:  () => <IconWrapper Icon={SiJavascript}  color="text-yellow-400" label="JavaScript" />,
-  Node:        () => <IconWrapper Icon={SiNodedotjs}   color="text-green-500"  label="Node.js" />,
-  Express:     () => <IconWrapper Icon={SiExpress}     color="text-gray-300"   label="Express.js" />,
-  MySQL:       () => <IconWrapper Icon={SiMysql}       color="text-orange-500" label="MySQL" />,
-  PostgreSQL:  () => <IconWrapper Icon={SiPostgresql}  color="text-blue-500"   label="PostgreSQL" />,
-  MongoDB:     () => <IconWrapper Icon={SiMongodb}     color="text-green-600"  label="MongoDB" />,
-  Supabase:    () => <IconWrapper Icon={SiSupabase}    color="text-purple-500" label="Supabase" />,
-  AWS:         () => <IconWrapper Icon={FaAws}         color="text-orange-400" label="AWS" />,
-  Vercel:      () => <IconWrapper Icon={SiVercel}      color="text-white"      label="Vercel" />,
-  Docker:      () => <IconWrapper Icon={SiDocker}      color="text-sky-500"    label="Docker" />,
-  Git:         () => <IconWrapper Icon={SiGit}         color="text-orange-500" label="Git" />,
-  GitHub:      () => <IconWrapper Icon={SiGithub}      color="text-gray-300"   label="GitHub" />,
-  ReactNative: () => <IconWrapper src="/icons/react-native.png"                label="React Native" />,
-  Azure:       () => <IconWrapper src="/icons/azure.png"                       label="Azure" />,
-  CICD:        () => <IconWrapper src="/icons/cicd.png"                        label="CI/CD" />,
+  React: () => <IconWrapper Icon={SiReact} color="text-cyan-400" label="React.js" />,
+  Next: () => <IconWrapper Icon={SiNextdotjs} color="text-white" label="Next.js" />,
+  Vue: () => <IconWrapper Icon={SiVuedotjs} color="text-green-500" label="Vue.js" />,
+  TypeScript: () => <IconWrapper Icon={SiTypescript} color="text-blue-500" label="TypeScript" />,
+  Tailwind: () => <IconWrapper Icon={SiTailwindcss} color="text-sky-400" label="Tailwind CSS" />,
+  GrGraphQl: () => <IconWrapper Icon={GrGraphQl} color="text-pink-500" label="GraphQL" />,
+  HTML: () => <IconWrapper Icon={SiHtml5} color="text-orange-500" label="HTML5" />,
+  CSS: () => <IconWrapper Icon={SiCss} color="text-blue-500" label="CSS3" />,
+  JavaScript: () => <IconWrapper Icon={SiJavascript} color="text-yellow-400" label="JavaScript" />,
+  Node: () => <IconWrapper Icon={SiNodedotjs} color="text-green-500" label="Node.js" />,
+  Express: () => <IconWrapper Icon={SiExpress} color="text-gray-300" label="Express.js" />,
+  MySQL: () => <IconWrapper Icon={SiMysql} color="text-orange-500" label="MySQL" />,
+  PostgreSQL: () => <IconWrapper Icon={SiPostgresql} color="text-blue-500" label="PostgreSQL" />,
+  MongoDB: () => <IconWrapper Icon={SiMongodb} color="text-green-600" label="MongoDB" />,
+  Supabase: () => <IconWrapper Icon={SiSupabase} color="text-purple-500" label="Supabase" />,
+  AWS: () => <IconWrapper Icon={FaAws} color="text-orange-400" label="AWS" />,
+  Vercel: () => <IconWrapper Icon={SiVercel} color="text-white" label="Vercel" />,
+  Docker: () => <IconWrapper Icon={SiDocker} color="text-sky-500" label="Docker" />,
+  Git: () => <IconWrapper Icon={SiGit} color="text-orange-500" label="Git" />,
+  GitHub: () => <IconWrapper Icon={SiGithub} color="text-gray-300" label="GitHub" />,
+  ReactNative: () => <IconWrapper src="/icons/react-native.png" label="React Native" />,
+  Azure: () => <IconWrapper src="/icons/azure.png" label="Azure" />,
+  CICD: () => <IconWrapper src="/icons/cicd.png" label="CI/CD" />,
 };
