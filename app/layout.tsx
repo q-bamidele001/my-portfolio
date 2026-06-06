@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       {
         // ✅ Use /og-image.jpg — a 1200×630px compressed version of your photo
         // Export from your phone at 1200×630, compress at tinypng.com < 600KB
-        url: '/images/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Bamidele Ademola — Full Stack Developer & Cybersecurity Expert',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Bamidele Ademola | Full Stack Developer & Cybersecurity Expert',
     description:
       'Building secure, scalable web & mobile applications. Available for freelance projects worldwide.',
-    images: ['/images/og-image.jpg'],
+    images: ['/og-image.jpg'],
   },
 
   // ── Canonical & robots ─────────────────────────────────────────
@@ -92,15 +92,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ✅ fetchPriority (camelCase) — fixes "Invalid DOM property" warning */}
+        {/*
+          Preload hero image with high fetch priority.
+          Forces browser to download the image before CSS blocks render.
+          This directly fights the render-blocking LCP issue on mobile.
+        */}
         <link
           rel="preload"
-          href="/images/bamidele01.jpg"
+          href="/og-image.jpg"
           as="image"
           type="image/jpeg"
           // @ts-ignore
-          fetchPriority="high"
+          fetchpriority="high"
         />
+        {/*
+          Preconnect to Cloudinary so project images load faster.
+          Saves ~150ms on mobile by establishing the connection early.
+        */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
