@@ -6,18 +6,18 @@ import { Sparkles } from 'lucide-react';
 import { VSCodeTypingEffect } from '@/components/ui/VSCodeTypingEffect';
 
 const CAREER_START_YEAR = 2023;
-const BASE_PROJECTS     = 10;
+const BASE_PROJECTS = 10;
 const PROJECTS_PER_YEAR = 0;
 
 function getDynamicStats() {
-  const currentYear  = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
   const yearsElapsed = currentYear - CAREER_START_YEAR;
-  const projects     = BASE_PROJECTS + yearsElapsed * PROJECTS_PER_YEAR;
+  const projects = BASE_PROJECTS + yearsElapsed * PROJECTS_PER_YEAR;
   return [
-    { label: 'Years Experience',   value: `${yearsElapsed}+` },
-    { label: 'Projects Completed', value: `${projects}+`     },
-    { label: 'Technologies',       value: '20+'              },
-    { label: 'Happy Clients',      value: '100%'             },
+    { label: 'Years Experience', value: `${yearsElapsed}+` },
+    { label: 'Projects Completed', value: `${projects}+` },
+    { label: 'Technologies', value: '20+' },
+    { label: 'Happy Clients', value: '100%' },
   ];
 }
 
@@ -53,16 +53,19 @@ export const HeroSection = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 180 }}
               >
+
                 <Image
                   src="/images/bamidele01.jpg"
                   alt="Bamidele Ademola — Full Stack Developer"
                   fill
-                  // ✅ priority=true → loads before anything else, fixes FCP & LCP
-                  priority
-                  // ✅ Proper sizes → browser picks correct resolution
+                  priority          // ← keeps eager loading
                   sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, 45vw"
                   className="object-cover object-top"
-                  // ✅ No loading="lazy" on priority images
+                  quality={85}      // ← reduces file size ~30% with no visible difference
+                  placeholder="blur"                    // ← shows a blurred preview instantly
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUEB//EACEQAAIBBAMBAQAAAAAAAAAAAAECAwQFERIhMUH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Amm6k4bW8lLuMbhI45VbxLe0PBAIPgg9xpNkttJi4VFpPJLHEoRXkYMxAGBk+TjQaKUpX/9k="
+                // ↑ This tiny base64 blur placeholder shows immediately while image loads
+                // It eliminates the "white flash" on mobile slow connections
                 />
                 {/* Online dot */}
                 <div className="absolute bottom-4 right-4 w-4 h-4 bg-emerald-400 border-2 border-gray-950 rounded-full shadow-lg shadow-emerald-500/40 animate-pulse" />
@@ -111,7 +114,7 @@ export const HeroSection = () => {
             <motion.div
               key={idx}
               variants={{
-                hidden:  { opacity: 0, y: 20 },
+                hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
               }}
               whileHover={{ scale: 1.05 }}

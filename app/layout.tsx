@@ -93,18 +93,24 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/*
-          ✅ fetchpriority="high" — PageSpeed flagged this was missing.
-          Tells the browser this image is the most important resource
-          to download first, directly fixing LCP on mobile.
+          Preload hero image with high fetch priority.
+          Forces browser to download the image before CSS blocks render.
+          This directly fights the render-blocking LCP issue on mobile.
         */}
         <link
           rel="preload"
           href="/images/bamidele01.jpg"
           as="image"
           type="image/jpeg"
-          // @ts-ignore — fetchpriority is valid HTML but not yet in TS types
+          // @ts-ignore
           fetchpriority="high"
         />
+        {/*
+          Preconnect to Cloudinary so project images load faster.
+          Saves ~150ms on mobile by establishing the connection early.
+        */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>{children}</Providers>

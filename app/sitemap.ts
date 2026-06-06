@@ -1,9 +1,5 @@
 import { MetadataRoute } from 'next';
 
-// ✅ This file MUST be in app/sitemap.ts (not app/sitemap.xml)
-// Next.js converts it automatically to /sitemap.xml
-// Make sure you do NOT have a public/sitemap.xml file — delete it if so
-
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -14,3 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 }
+
+// ── IMPORTANT: This file must be at app/sitemap.ts ──────────
+// NOT inside any route group like app/(LandingPage)/sitemap.ts
+// NOT in public/ folder
+// After deploying, verify at: https://www.bamideleade.com.ng/sitemap.xml
+// The URL /sitemap.ts appearing in analytics means someone visited
+// the raw file URL — it's harmless but confirms the file is in the right place
