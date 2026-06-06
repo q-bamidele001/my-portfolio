@@ -37,6 +37,11 @@ export const metadata: Metadata = {
   creator: 'Bamidele Ademola',
   metadataBase: new URL('https://www.bamideleade.com.ng'),
 
+  // ✅ ADD THIS — paste your actual content value from Google
+  verification: {
+    google: '<meta name="google-site-verification" content="ltfqjBi2ktyBSbyHq2J7cCRA1yxWWznJLBJpF280LsM" />', // ← replace with your full code
+  },
+
   // ── OpenGraph (LinkedIn, WhatsApp, Facebook previews) ──────────
   openGraph: {
     type: 'website',
