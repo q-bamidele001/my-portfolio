@@ -41,8 +41,8 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? 'bg-gray-950/80 backdrop-blur-xl shadow-2xl shadow-black/25 border-b border-white/10'
-          : 'bg-gray-950/55 backdrop-blur-md border-b border-white/[0.04]'
+        ? 'bg-gray-950/80 backdrop-blur-xl shadow-2xl shadow-black/25 border-b border-white/10'
+        : 'bg-gray-950/55 backdrop-blur-md border-b border-white/[0.04]'
         }`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -62,8 +62,8 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
                 whileHover={{ scale: 1.05 }}
                 onClick={() => scrollToSection(section)}
                 className={`capitalize relative rounded-full px-2.5 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-all ${activeSection === section
-                    ? 'bg-blue-500/15 text-cyan-200 shadow-sm shadow-blue-500/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  ? 'bg-blue-500/15 text-cyan-200 shadow-sm shadow-blue-500/20'
+                  : 'text-gray-300 hover:bg-white/5 hover:text-white'
                   }`}
               >
                 {section}
@@ -78,9 +78,12 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
             ))}
           </div>
 
+
           <button
             className="md:hidden rounded-full border border-white/10 bg-white/5 p-2 text-gray-200 hover:border-blue-400/40 hover:text-blue-300 transition-colors"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -105,8 +108,8 @@ export const Navigation = ({ activeSection, scrollToSection }: NavigationProps) 
                   setMobileMenuOpen(false);
                 }}
                 className={`block w-full text-left px-4 py-3 rounded-xl capitalize transition-all duration-200 ${activeSection === section
-                    ? 'bg-blue-500/15 text-cyan-200 ring-1 ring-blue-400/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  ? 'bg-blue-500/15 text-cyan-200 ring-1 ring-blue-400/20'
+                  : 'text-gray-300 hover:bg-white/5 hover:text-white'
                   }`}
               >
                 {section}

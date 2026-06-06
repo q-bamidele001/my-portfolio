@@ -4,6 +4,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 
+import dynamic from 'next/dynamic';
+
 
 // Global Components
 import { Navigation } from '@/components/Navigation';

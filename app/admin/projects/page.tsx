@@ -297,10 +297,12 @@ export default function ProjectsManagement() {
                       Edit
                     </motion.button>
 
+
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleDelete(project.id)}
+                      aria-label={`Delete ${project.title}`}
                       className="flex min-[380px]:w-auto items-center justify-center gap-2 px-3 py-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500 text-red-400 rounded-lg transition-all text-sm"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -427,11 +429,16 @@ export default function ProjectsManagement() {
                     </label>
                     {imagePreview ? (
                       <div className="relative">
-                        <img
-                          src={imagePreview}
-                          alt="Preview"
-                          className="w-full h-40 sm:h-48 object-cover rounded-lg"
-                        />
+                        <div className="relative w-full h-40 sm:h-48 rounded-lg overflow-hidden">
+                          <Image
+                            src={imagePreview}
+                            alt="Project image preview"
+                            fill
+                            sizes="100vw"
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
                         <button
                           type="button"
                           onClick={() => {

@@ -42,15 +42,17 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://www.bamideleade.com.ng',
     siteName: 'Bamidele Ademola Portfolio',
-    title: 'Bamidele Ademola | Full Stack Developer',
+    title: 'Bamidele Ademola | Full Stack Developer & Cybersecurity Expert',
     description:
-      'Building secure, scalable web & mobile applications. Next.js · React · TypeScript · Node.js · AWS.',
+      'Building secure, scalable web & mobile applications with Next.js, React, TypeScript, Node.js and AWS. Available for freelance projects worldwide.',
     images: [
       {
-        url: '/images/bamidele01.jpg',
+        // ✅ Use /og-image.jpg — a 1200×630px compressed version of your photo
+        // Export from your phone at 1200×630, compress at tinypng.com < 600KB
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Bamidele Ademola — Full Stack Developer',
+        alt: 'Bamidele Ademola — Full Stack Developer & Cybersecurity Expert',
       },
     ],
     locale: 'en_US',
@@ -59,10 +61,10 @@ export const metadata: Metadata = {
   // ── Twitter / X card ───────────────────────────────────────────
   twitter: {
     card: 'summary_large_image',
-    title: 'Bamidele Ademola | Full Stack Developer',
+    title: 'Bamidele Ademola | Full Stack Developer & Cybersecurity Expert',
     description:
-      'Building secure, scalable web & mobile applications. Available for freelance projects.',
-    images: ['/images/bamidele01.jpg'],
+      'Building secure, scalable web & mobile applications. Available for freelance projects worldwide.',
+    images: ['/images/og-image.jpg'],
   },
 
   // ── Canonical & robots ─────────────────────────────────────────

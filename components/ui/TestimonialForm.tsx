@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Star, Upload, X, CheckCircle2, Sparkles } from 'lucide-react';
 
@@ -126,16 +127,14 @@ export const TestimonialForm = () => {
         {STEPS.map((label, i) => (
           <React.Fragment key={i}>
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-              <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                i < step  ? 'bg-green-500 text-white' :
-                i === step ? 'bg-blue-500 text-white ring-4 ring-blue-500/30' :
-                'bg-gray-800 border border-white/10 text-gray-500'
-              }`}>
+              <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold transition-all duration-300 ${i < step ? 'bg-green-500 text-white' :
+                  i === step ? 'bg-blue-500 text-white ring-4 ring-blue-500/30' :
+                    'bg-gray-800 border border-white/10 text-gray-500'
+                }`}>
                 {i < step ? '✓' : i + 1}
               </div>
-              <span className={`text-xs hidden sm:block truncate transition-colors ${
-                i === step ? 'text-white font-medium' : 'text-gray-500'
-              }`}>
+              <span className={`text-xs hidden sm:block truncate transition-colors ${i === step ? 'text-white font-medium' : 'text-gray-500'
+                }`}>
                 {label}
               </span>
             </div>
@@ -165,10 +164,20 @@ export const TestimonialForm = () => {
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               {imagePreview ? (
                 <div className="relative flex-shrink-0">
-                  <img src={imagePreview} alt="You" className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-blue-500" />
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500">
+                    <Image
+                      src={imagePreview}
+                      alt="Your photo preview"
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
                   <button
                     type="button"
                     onClick={() => { setImagePreview(null); setFormData(p => ({ ...p, image: null })); }}
+                    aria-label="Remove photo"
                     className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                   >
                     <X className="w-3 h-3 text-white" />
@@ -189,10 +198,10 @@ export const TestimonialForm = () => {
             {/* Fields grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {[
-                { name: 'name',    label: 'Your Name',      placeholder: 'Jane Smith',        type: 'text'  },
-                { name: 'email',   label: 'Email Address',  placeholder: 'jane@company.com',  type: 'email' },
-                { name: 'role',    label: 'Your Role',      placeholder: 'CEO, Product Manager...', type: 'text' },
-                { name: 'company', label: 'Company',        placeholder: 'Acme Inc.',         type: 'text'  },
+                { name: 'name', label: 'Your Name', placeholder: 'Jane Smith', type: 'text' },
+                { name: 'email', label: 'Email Address', placeholder: 'jane@company.com', type: 'email' },
+                { name: 'role', label: 'Your Role', placeholder: 'CEO, Product Manager...', type: 'text' },
+                { name: 'company', label: 'Company', placeholder: 'Acme Inc.', type: 'text' },
               ].map((f) => (
                 <div key={f.name}>
                   <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">
@@ -257,11 +266,10 @@ export const TestimonialForm = () => {
                   // Large touch target for mobile
                   className="p-1 sm:p-0 min-w-0"
                 >
-                  <Star className={`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-all duration-150 ${
-                    star <= (hoveredStar || formData.rating)
+                  <Star className={`w-8 h-8 min-[360px]:w-10 min-[360px]:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-all duration-150 ${star <= (hoveredStar || formData.rating)
                       ? 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]'
                       : 'text-gray-600'
-                  }`} />
+                    }`} />
                 </motion.button>
               ))}
             </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { MessageSquare, ArrowLeft, Star, Trash2, Edit, X, Save } from 'lucide-react';
@@ -170,15 +171,21 @@ export default function TestimonialsManagement() {
               >
                 {/* Client Info */}
                 <div className="flex items-start gap-3 sm:gap-4 mb-4">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0">
-                    {testimonial.image ? (
-                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm sm:text-xl">
-                        {testimonial.name.split(' ').map((n) => n[0]).join('')}
-                      </div>
-                    )}
-                  </div>
+                  {testimonial.image ? (
+                    <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-blue-500 flex-shrink-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm sm:text-xl">
+                      {testimonial.name.split(' ').map((n) => n[0]).join('')}
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-white truncate">{testimonial.name}</h3>
                     <p className="text-sm text-gray-400 truncate">{testimonial.role} at {testimonial.company}</p>
@@ -236,10 +243,11 @@ export default function TestimonialsManagement() {
                       <span className="min-w-0 break-words text-xs text-gray-400">
                         Date: <span className="text-white font-medium">{testimonial.date}</span>
                       </span>
+
                       <button
                         onClick={() => startEdit(testimonial)}
                         className="flex-shrink-0 text-blue-400 hover:text-blue-300 transition-colors ml-2"
-                        title="Edit date"
+                        aria-label={`Edit date for ${testimonial.name}'s testimonial`}
                       >
                         <Edit className="w-4 h-4" />
                       </button>
