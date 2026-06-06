@@ -91,6 +91,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/*
+          ✅ Preload hero image — fixes "LCP request discovery" warning.
+          Browser fetches this before it even parses the JS bundle,
+          so the hero photo appears immediately on mobile.
+        */}
+        <link
+          rel="preload"
+          href="/images/bamidele01.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>{children}</Providers>
         <SpeedInsights />

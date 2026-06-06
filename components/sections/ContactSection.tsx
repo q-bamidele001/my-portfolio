@@ -72,6 +72,7 @@ export const ContactSection = () => {
               <motion.a
                 href="images/Bamidele-AdemolaCv.pdf"
                 download
+                aria-label="Download Bamidele Ademola's CV"
                 className="flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 rounded-2xl p-3 sm:p-4 transition-all group hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30"
                 whileHover={{ scale: 1.07 }}
               >
@@ -89,16 +90,33 @@ export const ContactSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7 }}
             >
+              {/* ✅ FIXED: added aria-label to all 3 icon-only links */}
               {[
-                { href: 'https://github.com/q-bamidele001', icon: Github, color: 'hover:bg-blue-600' },
-                { href: 'https://linkedin.com/in/bamidele-quayum', icon: Linkedin, color: 'hover:bg-blue-600' },
-                { href: 'https://bamideleademola.dev', icon: Code, color: 'hover:bg-purple-600' },
+                {
+                  href: 'https://github.com/q-bamidele001',
+                  icon: Github,
+                  color: 'hover:bg-blue-600',
+                  label: "View Bamidele's GitHub profile",
+                },
+                {
+                  href: 'https://linkedin.com/in/bamidele-quayum',
+                  icon: Linkedin,
+                  color: 'hover:bg-blue-600',
+                  label: "View Bamidele's LinkedIn profile",
+                },
+                {
+                  href: 'https://bamideleademola.dev',
+                  icon: Code,
+                  color: 'hover:bg-purple-600',
+                  label: "Visit Bamidele's portfolio website",
+                },
               ].map((link, i) => (
                 <motion.a
                   key={i}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={link.label} // ← THIS IS THE ONLY CHANGE
                   className={`w-11 h-11 sm:w-12 sm:h-12 bg-white/[0.055] border border-white/10 rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg shadow-black/10 ${link.color}`}
                   whileHover={{ rotate: 8 }}
                   whileTap={{ scale: 0.9 }}
