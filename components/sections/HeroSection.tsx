@@ -55,7 +55,7 @@ export const HeroSection = () => {
               >
 
                 <Image
-                  src="/images/bamidele01.jpg"
+                  src="/images/bamidele02.webp"
                   alt="Bamidele Ademola — Full Stack Developer"
                   fill
                   priority          // ← keeps eager loading

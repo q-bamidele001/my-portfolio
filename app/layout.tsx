@@ -52,9 +52,9 @@ export const metadata: Metadata = {
       'Building secure, scalable web & mobile applications with Next.js, React, TypeScript, Node.js and AWS. Available for freelance projects worldwide.',
     images: [
       {
-        // ✅ Use /og-image.jpg — a 1200×630px compressed version of your photo
+        // ✅ Use /og-image.webp — a 1200×630px compressed version of your photo
         // Export from your phone at 1200×630, compress at tinypng.com < 600KB
-        url: '/og-image.jpg',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'Bamidele Ademola — Full Stack Developer & Cybersecurity Expert',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: 'Bamidele Ademola | Full Stack Developer & Cybersecurity Expert',
     description:
       'Building secure, scalable web & mobile applications. Available for freelance projects worldwide.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.webp'],
   },
 
   // ── Canonical & robots ─────────────────────────────────────────
@@ -100,9 +100,9 @@ export default function RootLayout({
         {/* ✅ fetchPriority (camelCase) — fixes "Invalid DOM property" warning */}
         <link
           rel="preload"
-          href="/images/bamidele01.jpg"
+          href="/images/bamidele02.webp"
           as="image"
-          type="image/jpeg"
+          type="image/webp"
           // @ts-ignore
           fetchPriority="high"
         />
